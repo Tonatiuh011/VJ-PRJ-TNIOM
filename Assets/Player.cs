@@ -15,6 +15,8 @@ public class Player : MovingObject
     private SensorMovement  groundSensor;
     // Is grounded var
     private bool isGrounded = false;
+    // Double Jump var
+    private bool canDoubleJump;
     
     public override void Start()
     {
@@ -33,7 +35,7 @@ public class Player : MovingObject
         // Checking if foe just landed on ground
         if(!isGrounded && groundSensor.State())
         {
-            isGrounded = true;
+            isGrounded = true;            
             animator.SetBool("Grounded", isGrounded);
         }
          
@@ -41,17 +43,29 @@ public class Player : MovingObject
         if (isGrounded && !groundSensor.State())
         {
             isGrounded = false;
+            canDoubleJump = true;
             animator.SetBool("Grounded", isGrounded);
-        }        
-
-        if(Input.GetButtonDown("Jump") && isGrounded)
-        {
-            animator.SetTrigger("Jump");
-            isGrounded = false;            
-            animator.SetBool("Grounded", isGrounded);
-            yDir = jumpForce;
-            groundSensor.Disable(0.2f);
         }
+
+        if(isGrounded && !Input.GetButton("Jump"))
+            canDoubleJump = false;
+
+
+        if (Input.GetButtonDown("Jump"))
+            if (isGrounded || canDoubleJump)
+            {
+                if (!canDoubleJump)
+                    animator.SetTrigger("Jump");
+                else
+                    animator.SetTrigger("DoubleJump");
+
+                isGrounded = false;            
+                animator.SetBool("Grounded", isGrounded);
+                yDir = jumpForce;
+                groundSensor.Disable(0.2f);
+
+                canDoubleJump = !canDoubleJump; 
+            }
 
         if(xDir != 0 || yDir != 0 || inputRaw != 0)
             Move(xDir, yDir, inputRaw);
