@@ -5,9 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Collections;
 using UnityEngine;
+using Unity.Mathematics;
 
 public class SensorMovement : MonoBehaviour
 {
+    public string[] CollisionMasks = new string[] { };
+
     private int colCount = 0;
     private float disableTimer;
 
@@ -20,47 +23,32 @@ public class SensorMovement : MonoBehaviour
 
     public void Disable(float duration) => disableTimer = duration;
 
-    void OnTriggerEnter2D(Collider2D collision) => colCount++;
+    void OnTriggerEnter2D(Collider2D collision) 
+    {
+        if(IsCollisionOnMasks(CollisionMasks, collision.gameObject.layer))
+            colCount++; 
+    }
 
-    void OnTriggerExit2D(Collider2D collision) => colCount--;
+    void OnTriggerExit2D(Collider2D collision) 
+    {
+        if (IsCollisionOnMasks(CollisionMasks, collision.gameObject.layer))
+            colCount--;
+    }
 
     void Update() => disableTimer -= Time.deltaTime;
 
+    private bool IsCollisionOnMasks(string[] masks, int currentLayer)
+    {
+        if (masks.Length == 0)
+            return true;
 
-    //private int m_ColCount = 0;
+        foreach(var mask in masks)
+        {
+            var iLayer = LayerMask.NameToLayer(mask);            
+            return iLayer == currentLayer;
+        }
 
-    //private float m_DisableTimer;
-
-    //private void OnEnable()
-    //{
-    //    m_ColCount = 0;
-    //}
-
-    //public bool State()
-    //{ 
-    //    if (m_DisableTimer > 0)
-    //        return false;
-    //    return m_ColCount > 0;
-    //}
-
-    //void OnTriggerEnter2D(Collider2D other)
-    //{
-    //    m_ColCount++; 
-    //}
-
-    //void OnTriggerExit2D(Collider2D other)
-    //{
-    //    m_ColCount--;
-    //}
-
-    //void Update()
-    //{
-    //    m_DisableTimer -= Time.deltaTime;
-    //}
-
-    //public void Disable(float duration)
-    //{
-    //    m_DisableTimer = duration;
-    //}
+        return false;
+    }
 }
 

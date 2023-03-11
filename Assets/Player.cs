@@ -5,18 +5,26 @@ using UnityEngine;
 public class Player : MovingObject
 {
     [Header("Variables")]
-    [SerializeField] float  jumpForce = 7.5f;
-    [Header("Components")]
+    public float  jumpForce = 7.5f;
+    public float dashingPower = 24f;
+    public float dashingTime = 0.2f;
+    public float dashingCooldown = 1f;
+
     // Sprite component to flip x
     private SpriteRenderer  sprite;
     // Trigger animations, set values, etc
     private Animator        animator;
     // Sensor class, easily manage collisions
-    private SensorMovement  groundSensor;
+    private SensorMovement  groundSensor;    
     // Is grounded var
     private bool isGrounded = false;
     // Double Jump var
     private bool canDoubleJump;
+    // Dash Variable
+    private bool canDash = true;
+    // Is dashing 
+    private bool isDashing = false;
+
     
     public override void Start()
     {
@@ -28,9 +36,12 @@ public class Player : MovingObject
     
     void Update()
     {
+        if (isDashing)
+            return;
+
         float xDir = Input.GetAxis("Horizontal");
         float yDir = rb2D.velocity.y;
-        int inputRaw = (int)Input.GetAxisRaw("Horizontal");               
+        int inputRaw = (int)Input.GetAxisRaw("Horizontal");        
 
         // Checking if foe just landed on ground
         if(!isGrounded && groundSensor.State())
@@ -67,6 +78,10 @@ public class Player : MovingObject
                 canDoubleJump = !canDoubleJump; 
             }
 
+        if(Input.GetKeyDown(KeyCode.LeftShift) && canDash)        
+            StartCoroutine(Dash());
+        
+
         if(xDir != 0 || yDir != 0 || inputRaw != 0)
             Move(xDir, yDir, inputRaw);
 
@@ -89,9 +104,28 @@ public class Player : MovingObject
 
     protected override void OnSwapDirection(int direction)
     {
-        if(direction > 0)        
-            sprite.flipX = false;
-        else if(direction < 0)        
-            sprite.flipX = true;        
-    }    
+        var localScale = transform.localScale;
+
+        if (direction > 0)
+            localScale.x = Mathf.Abs(localScale.x) * 1f;            
+        else if (direction < 0)            
+            localScale.x = Mathf.Abs(localScale.x) * - 1;
+
+        transform.localScale = localScale;
+    }
+
+    private IEnumerator Dash()
+    {
+        animator.SetTrigger("Dash");
+        canDash = false;
+        isDashing = true;
+        float originalGravity = rb2D.gravityScale;
+        rb2D.gravityScale = 0f;
+        rb2D.velocity = new Vector2(transform.localScale.x * dashingPower, 0f);
+        yield return new WaitForSeconds(dashingTime);
+        rb2D.gravityScale = originalGravity;
+        isDashing = false;
+        yield return new WaitForSeconds(dashingCooldown);
+        canDash = true;
+    }
 }

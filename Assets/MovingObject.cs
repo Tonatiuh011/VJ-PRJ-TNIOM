@@ -5,19 +5,19 @@ using UnityEngine;
 public abstract class MovingObject : MonoBehaviour
 {
     [Header("Variables")]
-    [SerializeField] float      maxSpeed = 4.5f;
-    [Header("Components")]
-    protected BoxCollider2D     boxCollider;
+    [SerializeField] float      maxSpeed = 4.5f;    
+
+    protected Collider2D        boxCollider;
     protected Rigidbody2D       rb2D;    
     protected bool              isMoving = false;
     protected int               facingDirection = 1;
-    //[SerializeField] float      jumpForce = 7.5f;
-    //protected float             disableMovementTimer = 0.0f;
-    //protected bool              isGrounded = false;
+
+    public Vector2 Velocity => rb2D.velocity;
+    public Vector2 Position => rb2D.position;
 
     public virtual void Start()
     {
-        boxCollider = GetComponent<BoxCollider2D>();
+        boxCollider = GetComponent<Collider2D>();
         rb2D = GetComponent<Rigidbody2D>();
     }
 
@@ -55,7 +55,35 @@ public abstract class MovingObject : MonoBehaviour
 
         // After Movement Event
         OnMovement();
-    } 
+    }
+
+    /// <summary>
+    /// Moves the object to a target!!
+    /// </summary>    
+    /// <param name="target">Target aiming to move!</param>
+    /// <param name="speed">Speed that the current object will move!!</param>
+    protected void MoveTowards(Vector2 target, float speed)
+    {        
+        // TODO: Add Attempt Logic
+        //if (!AttemptMove(xDir, yDir))
+        //    return;
+
+        isMoving = !(target == null);
+        
+        if(isMoving)
+        {
+            float cX = Position.x, tX = target.x;
+            // Getting facing direction from the X values of the two objects.
+            // 1 left; -1 rigth
+            facingDirection = cX > tX ? 1 : -1;
+            OnSwapDirection(facingDirection);
+
+            // Moving Towards!
+            transform.position = Vector2.MoveTowards(Position, target, speed * Time.deltaTime);
+        }
+
+        OnMovement();
+    }
 
     /// <summary>
     /// On Swap Direction Event
