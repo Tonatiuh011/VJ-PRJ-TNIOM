@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3646174501628976281}
   - component: {fileID: 3646174501628976282}
   - component: {fileID: 3646174501628976277}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Crow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -168,9 +168,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f23f8c6a2be2210408bd117b07edf72f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 4.5
+  maxSpeed: 2
   Target: {fileID: 0}
-  Speed: 3.5
+  Speed: 1.5
   startPosition: {fileID: 0}
 --- !u!1001 &3646174503162588194
 PrefabInstance:
