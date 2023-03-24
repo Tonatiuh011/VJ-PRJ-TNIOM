@@ -6,7 +6,7 @@ public class Bird : MovingObject
 {
     [Header("Enemy Props")]
     public MovingObject Target;
-    public float Speed = 1.5f;    
+    public float Speed = 1.5f;
 
     public Transform startPosition;
 
@@ -28,7 +28,7 @@ public class Bird : MovingObject
         var obj = transform.Find("RangeSensor");
         rangeCollider = obj.GetComponent<BoxCollider2D>();
         animator = GetComponent<Animator>();
-        rangeSensor = obj.GetComponent<SensorMovement>();        
+        rangeSensor = obj.GetComponent<SensorMovement>();
     }
 
     void Update()
@@ -71,4 +71,3 @@ public class Bird : MovingObject
             sprite.flipX = false;
     }
 }
-

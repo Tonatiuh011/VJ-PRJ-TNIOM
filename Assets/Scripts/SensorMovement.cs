@@ -7,7 +7,7 @@ using System.Collections;
 using UnityEngine;
 using Unity.Mathematics;
 
-public class SensorMovement : MonoBehaviour // ya me awite (Y)
+public class SensorMovement : MonoBehaviour
 {
     public string[] CollisionMasks = new string[] { };
 
@@ -51,4 +51,3 @@ public class SensorMovement : MonoBehaviour // ya me awite (Y)
         return false;
     }
 }
-

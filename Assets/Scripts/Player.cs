@@ -1,3 +1,4 @@
+using Assets.Scripts.Classes;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,19 +6,23 @@ using UnityEngine.InputSystem;
 
 public class Player : MovingObject
 {
-    [Header("Variables")]
+    [Header("Player - HP, Damage")]
+    public float hp = 100;
+    public float damage = 50;    
+
+    [Header("Player - Movement")]
     public float jumpForce = 7.5f;
     public float jumpTime = 0.2f;
     public float dashingForce = 3.3f;
     public float dashingTime = 0.2f;
     public float dashingCooldown = 1f;
 
-    // Sprite component to flip x
-    private SpriteRenderer  sprite;
+    // Unit Base
+    private UnitBase unit;
     // Trigger animations, set values, etc
     private Animator        animator;
     // Sensor class, easily manage collisions
-    private SensorMovement  groundSensor;        
+    private SensorMovement  groundSensor;
     // Is grounded var
     private bool isGrounded = false;
     // Double Jump var
@@ -33,7 +38,7 @@ public class Player : MovingObject
 
     // MovY
     private float movY;
-    private float MovY { get => movY; set => movY = value; }    
+    private float MovY { get => movY; set => movY = value; }
 
     public void Update()
     {
@@ -47,7 +52,7 @@ public class Player : MovingObject
         int inputRaw = 0;
 
         if (xDir != 0)
-            inputRaw = xDir > 0 ? 1 : -1;        
+            inputRaw = xDir > 0 ? 1 : -1;
 
         // Checking if foe just landed on ground
         if (!isGrounded && groundSensor.State())
@@ -76,7 +81,8 @@ public class Player : MovingObject
     public override void Start()
     {
         base.Start();
-        sprite = GetComponent<SpriteRenderer>();
+        unit = new UnitBase(hp, damage, OnHPChange, Death);
+        //sprite = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
         groundSensor = transform.Find("GroundSensor").GetComponent<SensorMovement>();
     }   
@@ -124,7 +130,7 @@ public class Player : MovingObject
         var localScale = transform.localScale;
 
         if (direction > 0)
-            localScale.x = Mathf.Abs(localScale.x) * 1f;            
+            localScale.x = Mathf.Abs(localScale.x) * 1f;
         else if (direction < 0)            
             localScale.x = Mathf.Abs(localScale.x) * - 1;
 
@@ -167,8 +173,13 @@ public class Player : MovingObject
         animator.SetTrigger("AttackA");
     }
 
-    //void FixedUpdate()
-    //{
-    //}
+    private void Death(UnitBase unit)
+    {
 
+    }
+
+    private void OnHPChange(float hp)
+    {
+
+    }
 }

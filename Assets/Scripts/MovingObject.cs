@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class MovingObject : MonoBehaviour // Ya me awite, ok <3
 {
-    [Header("Variables")]
+    [Header("Movement Speed")]
     [SerializeField] float      maxSpeed = 4.5f;    
 
     protected Collider2D        boxCollider;
