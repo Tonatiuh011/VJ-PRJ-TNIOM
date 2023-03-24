@@ -1,14 +1,12 @@
 using Assets.Scripts.Classes;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class Player : MovingObject
-{
-    [Header("Player - HP, Damage")]
-    public float hp = 100;
-    public float damage = 50;    
+public class Player : GameUnit
+{   
 
     [Header("Player - Movement")]
     public float jumpForce = 7.5f;
@@ -16,13 +14,13 @@ public class Player : MovingObject
     public float dashingForce = 3.3f;
     public float dashingTime = 0.2f;
     public float dashingCooldown = 1f;
-
-    // Unit Base
-    private UnitBase unit;
+    
     // Trigger animations, set values, etc
     private Animator        animator;
     // Sensor class, easily manage collisions
     private SensorMovement  groundSensor;
+    // HitBox sensor
+    private SensorMovement hitbox;
     // Is grounded var
     private bool isGrounded = false;
     // Double Jump var
@@ -40,8 +38,10 @@ public class Player : MovingObject
     private float movY;
     private float MovY { get => movY; set => movY = value; }
 
-    public void Update()
+    public override void Update()
     {
+        base.Update();
+
         if (isDashing)
             return;
 
@@ -81,11 +81,12 @@ public class Player : MovingObject
     public override void Start()
     {
         base.Start();
-        unit = new UnitBase(hp, damage, OnHPChange, Death);
         //sprite = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
         groundSensor = transform.Find("GroundSensor").GetComponent<SensorMovement>();
-    }   
+        hitbox = transform.Find("Hitbox").GetComponent<SensorMovement>();
+        hitbox.OnCollision = OnHitbox;
+    }
 
     public void OnMove(InputValue movementValue)
     {
@@ -109,11 +110,6 @@ public class Player : MovingObject
     public void OnAttack(InputValue inputValue)
     {
         Attack();
-    }
-
-    protected override bool AttemptMove(float xDir, float yDir)
-    {
-        return true;
     }
 
     protected override void OnMovement()
@@ -142,11 +138,8 @@ public class Player : MovingObject
         animator.SetTrigger("Dash");        
         canDash = false;
         isDashing = true;
-        //float originalGravity = rb2D.gravityScale;
-        //rb2D.gravityScale = 0f;
         rb2D.velocity = new Vector2(transform.localScale.x * dashingForce, 0f);
         yield return new WaitForSeconds(dashingTime);
-        //rb2D.gravityScale = originalGravity;
         isDashing = false;
         yield return new WaitForSeconds(dashingCooldown);
         canDash = true;        
@@ -170,16 +163,28 @@ public class Player : MovingObject
 
     private void Attack()
     {
+        var animName = "Attack-A";
         animator.SetTrigger("AttackA");
+        var clip = animator
+        .runtimeAnimatorController
+        .animationClips
+        .ToList()
+        .Find(x => {
+            return x.name == animName;
+        });
+        StartCoroutine(StopMovement(clip.length));
     }
 
-    private void Death(UnitBase unit)
+    public void OnHitbox(Collider2D collider)
     {
 
     }
 
-    private void OnHPChange(float hp)
+    protected override void Death(UnitBase unit)
     {
+    }
 
+    protected override void OnHPChange(float hp)
+    {
     }
 }

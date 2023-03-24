@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem.LowLevel;
 
 public abstract class MovingObject : MonoBehaviour // Ya me awite, ok <3
 {
@@ -11,6 +12,8 @@ public abstract class MovingObject : MonoBehaviour // Ya me awite, ok <3
     protected Rigidbody2D       rb2D;    
     protected bool              isMoving = false;
     protected int               facingDirection = 1;
+
+    private float disableMovement;
     //protected float movX;
     //private float movY;
 
@@ -22,6 +25,8 @@ public abstract class MovingObject : MonoBehaviour // Ya me awite, ok <3
         boxCollider = GetComponent<Collider2D>();
         rb2D = GetComponent<Rigidbody2D>();
     }
+
+    public virtual void Update() => disableMovement -= Time.deltaTime;
 
     /// <summary>
     /// Move Object
@@ -95,13 +100,6 @@ public abstract class MovingObject : MonoBehaviour // Ya me awite, ok <3
     /// <param name="mode"></param>
     protected void Force(Vector2 vector, float force, ForceMode2D mode) 
         => rb2D.AddForce(vector * force, mode);
-    
-
-    //protected void SetMovementValues(float x, float y)
-    //{
-    //    movX = x;
-    //    movY = y;
-    //}
 
     /// <summary>
     /// On Swap Direction Event
@@ -114,23 +112,28 @@ public abstract class MovingObject : MonoBehaviour // Ya me awite, ok <3
     /// </summary>
     /// <param name="xDir">Foat X position</param>
     /// <returns>True if it can move, if not false</returns>
-    protected abstract bool AttemptMove(float xDir, float yDir);
+    protected virtual bool AttemptMove(float xDir, float yDir)
+    {
+        if (disableMovement > 0)
+            return false;
+
+        return true;
+    }
 
     /// <summary>
     /// On Movement Event
     /// </summary>
     protected abstract void OnMovement();
+
+    /// <summary>
+    /// StopMovement
+    /// </summary>
+    /// <param name="time">disable Movement</param>
+    /// <returns></returns>
+    protected IEnumerator StopMovement(float time)
+    {
+        disableMovement = time;
+        rb2D.velocity = Vector2.zero;
+        yield return new WaitForSeconds(time);
+    }
 }
-
-/*
- * Non Used Fucntions
-    //protected virtual void AttemptMove<T>(int xDir, int yDir) where T : Component
-    //{
-    //    RaycastHit2D hit;
-
-    //    bool canMove;
-    //}
-
-    //protected abstract void OnCantMove<T>(T component)
-    //   where T : Component;
- */

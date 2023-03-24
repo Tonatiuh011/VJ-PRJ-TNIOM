@@ -6,12 +6,10 @@ using System.Threading.Tasks;
 
 namespace Assets.Scripts.Classes
 {
-    public interface IEnemy
+    public interface IUnit
     {
         public float HP { get; set; }
         public float Damage { get; set; }
-        public float Speed { get; set; }
         public UnitBase Unit { get; set; }
-
     }
 }

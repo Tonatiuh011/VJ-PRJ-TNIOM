@@ -10,6 +10,7 @@ using Unity.Mathematics;
 public class SensorMovement : MonoBehaviour
 {
     public string[] CollisionMasks = new string[] { };
+    public Action<Collider2D>? OnCollision { get; set; }
 
     private int colCount = 0;
     private float disableTimer;
@@ -26,7 +27,10 @@ public class SensorMovement : MonoBehaviour
     void OnTriggerEnter2D(Collider2D collision) 
     {
         if(IsCollisionOnMasks(CollisionMasks, collision.gameObject.layer))
-            colCount++; 
+        {
+            colCount++;
+            OnCollision?.Invoke(collision);
+        }
     }
 
     void OnTriggerExit2D(Collider2D collision) 

@@ -1,13 +1,13 @@
+using Assets.Scripts.Classes;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bird : MovingObject
+public class Bird : GameUnit
 {
     [Header("Enemy Props")]
     public MovingObject Target;
     public float Speed = 1.5f;
-
     public Transform startPosition;
 
     // Is chasing
@@ -31,8 +31,9 @@ public class Bird : MovingObject
         rangeSensor = obj.GetComponent<SensorMovement>();
     }
 
-    void Update()
+    public override void Update()
     {
+        base.Update();
         if (Target == null)
             return;
 
@@ -47,11 +48,6 @@ public class Bird : MovingObject
         else
             MoveTowards(startPosition.position, Speed);
 
-    }
-
-    protected override bool AttemptMove(float xDir, float yDir)
-    {
-        return true;
     }
 
     protected override void OnMovement()
@@ -69,5 +65,15 @@ public class Bird : MovingObject
             sprite.flipX = true;
         else if (direction < 0)
             sprite.flipX = false;
+    }
+
+    protected override void Death(UnitBase unit)
+    {
+
+    }
+
+    protected override void OnHPChange(float hp)
+    {
+
     }
 }
