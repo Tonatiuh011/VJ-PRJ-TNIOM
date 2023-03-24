@@ -7,10 +7,10 @@ using System.Collections;
 using UnityEngine;
 using Unity.Mathematics;
 
-public class SensorMovement : MonoBehaviour
+public class Sensor : MonoBehaviour
 {
     public string[] CollisionMasks = new string[] { };
-    public Action<Collider2D>? OnCollision { get; set; }
+    public Action<Collider2D> OnCollision { get; set; }
 
     private int colCount = 0;
     private float disableTimer;
@@ -48,7 +48,7 @@ public class SensorMovement : MonoBehaviour
 
         foreach(var mask in masks)
         {
-            var iLayer = LayerMask.NameToLayer(mask);            
+            var iLayer = LayerMask.NameToLayer(mask);
             return iLayer == currentLayer;
         }
 

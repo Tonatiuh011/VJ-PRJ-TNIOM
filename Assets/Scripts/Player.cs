@@ -1,3 +1,4 @@
+using Assets.Scripts;
 using Assets.Scripts.Classes;
 using System.Collections;
 using System.Collections.Generic;
@@ -6,8 +7,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class Player : GameUnit
-{   
-
+{
     [Header("Player - Movement")]
     public float jumpForce = 7.5f;
     public float jumpTime = 0.2f;
@@ -18,9 +18,9 @@ public class Player : GameUnit
     // Trigger animations, set values, etc
     private Animator        animator;
     // Sensor class, easily manage collisions
-    private SensorMovement  groundSensor;
+    private Sensor  groundSensor;
     // HitBox sensor
-    private SensorMovement hitbox;
+    private Sensor hitbox;
     // Is grounded var
     private bool isGrounded = false;
     // Double Jump var
@@ -38,8 +38,12 @@ public class Player : GameUnit
     private float movY;
     private float MovY { get => movY; set => movY = value; }
 
+    // diable actions 
+    private float disableActions;
+
     public override void Update()
     {
+        disableActions -= Time.deltaTime;
         base.Update();
 
         if (isDashing)
@@ -81,18 +85,27 @@ public class Player : GameUnit
     public override void Start()
     {
         base.Start();
-        //sprite = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
-        groundSensor = transform.Find("GroundSensor").GetComponent<SensorMovement>();
-        hitbox = transform.Find("Hitbox").GetComponent<SensorMovement>();
+        groundSensor = transform.Find("GroundSensor").GetComponent<Sensor>();
+        hitbox = transform.Find("Hitbox").GetComponent<Sensor>();
         hitbox.OnCollision = OnHitbox;
+    }
+
+    public void OnTriggerEnter2D(Collider2D collision)
+    {
+        var gameObject = collision.gameObject;
+
+        if(gameObject.tag == "Hitbox")
+        {
+            var enemy = gameObject.GetComponentInParent<Enemy>();
+            Hit(enemy.Unit.Damage);
+        }
     }
 
     public void OnMove(InputValue movementValue)
     {
         Vector2 movementVector = movementValue.Get<Vector2>();
         movX = Mathf.RoundToInt(movementVector.x);
-        //movY = movementVector.y;
     }
 
     public void OnJump(InputValue inputValue)
@@ -135,14 +148,14 @@ public class Player : GameUnit
 
     private IEnumerator Dash()
     {
-        animator.SetTrigger("Dash");        
+        animator.SetTrigger("Dash");
         canDash = false;
         isDashing = true;
         rb2D.velocity = new Vector2(transform.localScale.x * dashingForce, 0f);
         yield return new WaitForSeconds(dashingTime);
         isDashing = false;
         yield return new WaitForSeconds(dashingCooldown);
-        canDash = true;        
+        canDash = true;
     }
 
     private IEnumerator Jump()
@@ -163,28 +176,33 @@ public class Player : GameUnit
 
     private void Attack()
     {
+        if (disableActions > 0.1)
+            return;
+
         var animName = "Attack-A";
         animator.SetTrigger("AttackA");
-        var clip = animator
-        .runtimeAnimatorController
-        .animationClips
-        .ToList()
-        .Find(x => {
-            return x.name == animName;
-        });
-        StartCoroutine(StopMovement(clip.length));
+        var len = Utils.GetClipLength(animator, animName);
+        StopMovement(len);
+        disableActions += len;
     }
 
     public void OnHitbox(Collider2D collider)
     {
-
+        var obj = collider.gameObject;
+        var enemy = obj.GetComponentInParent<Enemy>();
+        if(enemy != null)
+        {
+            enemy.Hit(Unit.Damage);
+        }
     }
 
     protected override void Death(UnitBase unit)
     {
+
     }
 
     protected override void OnHPChange(float hp)
     {
+
     }
 }

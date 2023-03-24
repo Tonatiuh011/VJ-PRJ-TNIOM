@@ -6,10 +6,10 @@ using UnityEngine.InputSystem.LowLevel;
 public abstract class MovingObject : MonoBehaviour // Ya me awite, ok <3
 {
     [Header("Movement Speed")]
-    [SerializeField] float      maxSpeed = 4.5f;    
+    [SerializeField] float      maxSpeed = 4.5f;
 
     protected Collider2D        boxCollider;
-    protected Rigidbody2D       rb2D;    
+    protected Rigidbody2D       rb2D;
     protected bool              isMoving = false;
     protected int               facingDirection = 1;
 
@@ -37,28 +37,28 @@ public abstract class MovingObject : MonoBehaviour // Ya me awite, ok <3
     protected void Move (float xDir, float yDir, int inputRaw)
     {
         // Attempting to move
-        if (!AttemptMove(xDir, yDir))
-            return;
-
-        // Is moving validation?
-        if (Mathf.Abs(inputRaw) > Mathf.Epsilon && Mathf.Sign(inputRaw) == facingDirection)        
-            isMoving = true;
-        else
-            isMoving = false;
-
-        // Setting facing orientation properties
-        if(inputRaw != 0)
+        if (AttemptMove())
         {
-            facingDirection = inputRaw;
-            OnSwapDirection(facingDirection);
-        }        
+            // Is moving validation?
+            if (Mathf.Abs(inputRaw) > Mathf.Epsilon && Mathf.Sign(inputRaw) == facingDirection)
+                isMoving = true;
+            else
+                isMoving = false;
 
-        // SlowDownSpeed decelarate objects when stoping
-        // TODO: Try to add decelaration properties!
-        float slowDownSpeed = isMoving ? 1.0f : 0.5f;
+            // Setting facing orientation properties
+            if (inputRaw != 0)
+            {
+                facingDirection = inputRaw;
+                OnSwapDirection(facingDirection);
+            }
 
-        // Movement Logic
-        rb2D.velocity = new Vector2(xDir * maxSpeed * slowDownSpeed, yDir);
+            // SlowDownSpeed decelarate objects when stoping
+            // TODO: Try to add decelaration properties!
+            float slowDownSpeed = isMoving ? 1.0f : 0.5f;
+
+            // Movement Logic
+            rb2D.velocity = new Vector2(xDir * maxSpeed * slowDownSpeed, yDir);
+        }
 
         // After Movement Event
         OnMovement();
@@ -70,23 +70,24 @@ public abstract class MovingObject : MonoBehaviour // Ya me awite, ok <3
     /// <param name="target">Target aiming to move!</param>
     /// <param name="speed">Speed that the current object will move!!</param>
     protected void MoveTowards(Vector2 target, float speed)
-    {        
-        // TODO: Add Attempt Logic
-        //if (!AttemptMove(xDir, yDir))
-        //    return;
-
-        isMoving = !(target == null);
-        
-        if(isMoving)
+    {
+        // Attempting to move
+        if (AttemptMove()) 
         {
-            float cX = Position.x, tX = target.x;
-            // Getting facing direction from the X values of the two objects.
-            // 1 left; -1 rigth
-            facingDirection = cX > tX ? 1 : -1;
-            OnSwapDirection(facingDirection);
+            isMoving = !(target == null);
+        
+            if(isMoving)
+            {
+                float cX = Position.x, tX = target.x;
+                // Getting facing direction from the X values of the two objects.
+                // 1 left; -1 rigth
+                facingDirection = cX > tX ? 1 : -1;
+                OnSwapDirection(facingDirection);
 
-            // Moving Towards!
-            transform.position = Vector2.MoveTowards(Position, target, speed * Time.deltaTime);
+                // Moving Towards!
+                transform.position = Vector2.MoveTowards(Position, target, speed * Time.deltaTime);
+            }
+
         }
 
         OnMovement();
@@ -112,7 +113,7 @@ public abstract class MovingObject : MonoBehaviour // Ya me awite, ok <3
     /// </summary>
     /// <param name="xDir">Foat X position</param>
     /// <returns>True if it can move, if not false</returns>
-    protected virtual bool AttemptMove(float xDir, float yDir)
+    protected virtual bool AttemptMove()
     {
         if (disableMovement > 0)
             return false;
@@ -130,10 +131,10 @@ public abstract class MovingObject : MonoBehaviour // Ya me awite, ok <3
     /// </summary>
     /// <param name="time">disable Movement</param>
     /// <returns></returns>
-    protected IEnumerator StopMovement(float time)
-    {
-        disableMovement = time;
+    protected void StopMovement(float time) { 
         rb2D.velocity = Vector2.zero;
-        yield return new WaitForSeconds(time);
+        isMoving = false;
+        disableMovement = time; 
     }
+    
 }

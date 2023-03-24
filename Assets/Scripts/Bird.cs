@@ -1,12 +1,12 @@
+using Assets.Scripts;
 using Assets.Scripts.Classes;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bird : GameUnit
+public class Bird : Enemy
 {
-    [Header("Enemy Props")]
-    public MovingObject Target;
+    [Header("Bird - Props")]
     public float Speed = 1.5f;
     public Transform startPosition;
 
@@ -19,7 +19,7 @@ public class Bird : GameUnit
     // Range Collider, triggers the collision with the target!
     private Collider2D rangeCollider;
     // Range Sensor
-    private SensorMovement rangeSensor;
+    private Sensor rangeSensor;
 
     public override void Start()
     {
@@ -28,7 +28,7 @@ public class Bird : GameUnit
         var obj = transform.Find("RangeSensor");
         rangeCollider = obj.GetComponent<BoxCollider2D>();
         animator = GetComponent<Animator>();
-        rangeSensor = obj.GetComponent<SensorMovement>();
+        rangeSensor = obj.GetComponent<Sensor>();
     }
 
     public override void Update()
@@ -37,7 +37,7 @@ public class Bird : GameUnit
         if (Target == null)
             return;
 
-        if(rangeSensor.State())        
+        if(rangeSensor.State())
             isChasing = true;
 
         if(!rangeSensor.State())
@@ -67,9 +67,15 @@ public class Bird : GameUnit
             sprite.flipX = false;
     }
 
-    protected override void Death(UnitBase unit)
-    {
-
+    protected override void Death(UnitBase unit) {
+        var len = Utils.GetClipLength(animator, "Death");
+        StopMovement(len);
+        animator.SetTrigger("Death");
+        Destroy(gameObject, len);
+        //StartCoroutine(Utils.Delay(
+        //    len,
+        //    cbAfter: () => Destroy(gameObject, len)
+        //));
     }
 
     protected override void OnHPChange(float hp)

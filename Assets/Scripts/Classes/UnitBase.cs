@@ -25,9 +25,9 @@ namespace Assets.Scripts.Classes
             }
         } 
 
-        protected float HealthPoints { get; set; }
+        public float HealthPoints { get; set; }
 
-        protected float Damage { get; set; }
+        public float Damage { get; set; }
 
         public UnitBase(float hp, float damage, Action<float>  onHpChange, Action<UnitBase> onDeath)
         {
@@ -37,18 +37,18 @@ namespace Assets.Scripts.Classes
             OnDeath = onDeath;
         }
 
-        protected void AddHP(float hp) { 
+        public void AddHP(float hp) { 
             CurrentHP += hp; 
             OnHealthPointsChanged(CurrentHP);
         }
 
-        protected void AddDamage(float damage) => Damage += damage;
+        public void AddDamage(float damage) => Damage += damage;
 
-        public virtual void Hit(float damage)
+        public void Hit(float damage)
         {
             CurrentHP -= damage;
             OnHealthPointsChanged(CurrentHP);
-            if (HealthPoints < 0)
+            if (HealthPoints <= 0)
                 OnDeath(this);
         }
     }

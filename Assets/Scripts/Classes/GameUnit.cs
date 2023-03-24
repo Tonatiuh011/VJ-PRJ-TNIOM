@@ -21,9 +21,12 @@ public abstract class GameUnit : MovingObject, IUnit
         HP = hp;
         Damage = damage;
         Unit = new UnitBase(HP, Damage, OnHPChange, Death);
-    }
+    }    
+
+    protected abstract void OnHPChange(float hp);
 
     protected abstract void Death(UnitBase unit);
 
-    protected abstract void OnHPChange(float hp);
+    public virtual void Hit(float damage) => Unit.Hit(damage);
+    
 }
