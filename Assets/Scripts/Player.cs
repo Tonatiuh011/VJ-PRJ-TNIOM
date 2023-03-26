@@ -98,7 +98,10 @@ public class Player : GameUnit
         if(gameObject.tag == "Hitbox")
         {
             var enemy = gameObject.GetComponentInParent<Enemy>();
+            Vector2 direction = enemy.FacingDirection > 0 ? Vector2.left : Vector2.right;
+            StopMovement(0.1f);
             Hit(enemy.Unit.Damage);
+            Force(direction, enemy.pushForce, ForceMode2D.Impulse);
         }
     }
 
@@ -190,6 +193,7 @@ public class Player : GameUnit
     {
         var obj = collider.gameObject;
         var enemy = obj.GetComponentInParent<Enemy>();
+
         if(enemy != null)
         {
             enemy.Hit(Unit.Damage);
@@ -204,5 +208,11 @@ public class Player : GameUnit
     protected override void OnHPChange(float hp)
     {
 
+    }
+
+    public override void Hit(float damage)
+    {
+        base.Hit(damage);
+        animator.SetTrigger("Hit");
     }
 }

@@ -12,5 +12,6 @@ namespace Assets.Scripts
     {
         [Header("Enemy - Base")]
         public MovingObject Target;
+        public float pushForce = 4f;
     }
 }

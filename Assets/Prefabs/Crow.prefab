@@ -173,6 +173,7 @@ MonoBehaviour:
   hp: 20
   damage: 30
   Target: {fileID: 0}
+  pushForce: 10
   Speed: 1.5
   startPosition: {fileID: 0}
 --- !u!1001 &3646174503162588194
@@ -290,6 +291,10 @@ PrefabInstance:
     - target: {fileID: 2854581153979532146, guid: 4c5130c7be226aa418645411766e1067, type: 3}
       propertyPath: m_Name
       value: Hitbox
+      objectReference: {fileID: 0}
+    - target: {fileID: 2854581153979532146, guid: 4c5130c7be226aa418645411766e1067, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 2854581153979532146, guid: 4c5130c7be226aa418645411766e1067, type: 3}
       propertyPath: m_TagString

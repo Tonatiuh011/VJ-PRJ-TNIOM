@@ -10235,10 +10235,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 383142426}
     m_Modifications:
+    - target: {fileID: 1199541926025331860, guid: 9a972d2c1ea5c324a8447f4c63953e0f, type: 3}
+      propertyPath: m_Size.x
+      value: 3.4909935
+      objectReference: {fileID: 0}
+    - target: {fileID: 1199541926025331860, guid: 9a972d2c1ea5c324a8447f4c63953e0f, type: 3}
+      propertyPath: m_Offset.x
+      value: -0.11640102
+      objectReference: {fileID: 0}
     - target: {fileID: 3646174501628976277, guid: 9a972d2c1ea5c324a8447f4c63953e0f, type: 3}
       propertyPath: Target
       value: 
       objectReference: {fileID: 396606749}
+    - target: {fileID: 3646174501628976277, guid: 9a972d2c1ea5c324a8447f4c63953e0f, type: 3}
+      propertyPath: pushForce
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 3646174501628976277, guid: 9a972d2c1ea5c324a8447f4c63953e0f, type: 3}
       propertyPath: startPosition
       value: 
@@ -10357,6 +10369,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 920390687, guid: c9bc72cb3e496f241a636980cc154072, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 920390687, guid: c9bc72cb3e496f241a636980cc154072, type: 3}
       propertyPath: m_TagString
       value: Untagged

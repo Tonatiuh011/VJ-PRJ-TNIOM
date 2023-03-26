@@ -19,6 +19,7 @@ public abstract class MovingObject : MonoBehaviour // Ya me awite, ok <3
 
     public Vector2 Velocity => rb2D.velocity;
     public Vector2 Position => rb2D.position;
+    public int FacingDirection => facingDirection;
 
     public virtual void Start()
     {

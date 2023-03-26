@@ -11,6 +11,7 @@ public abstract class GameUnit : MovingObject, IUnit
     [Header("Health - Damage")]
     public float hp = 100;
     public float damage = 50;
+    public float hitDuration = 0.2f;
 
     public float HP { get; set; }
     public float Damage { get; set; }
