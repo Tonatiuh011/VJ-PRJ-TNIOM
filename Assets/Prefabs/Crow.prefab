@@ -172,8 +172,9 @@ MonoBehaviour:
   maxSpeed: 2
   hp: 20
   damage: 30
+  hitDuration: 1
   Target: {fileID: 0}
-  pushForce: 10
+  pushForce: 4
   Speed: 1.5
   startPosition: {fileID: 0}
 --- !u!1001 &3646174503162588194
@@ -343,6 +344,14 @@ PrefabInstance:
     - target: {fileID: 6286202267366262478, guid: 4c5130c7be226aa418645411766e1067, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6610979641002279334, guid: 4c5130c7be226aa418645411766e1067, type: 3}
+      propertyPath: m_Size.x
+      value: 3.4909935
+      objectReference: {fileID: 0}
+    - target: {fileID: 6610979641002279334, guid: 4c5130c7be226aa418645411766e1067, type: 3}
+      propertyPath: m_Offset.x
+      value: -0.11640102
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4c5130c7be226aa418645411766e1067, type: 3}

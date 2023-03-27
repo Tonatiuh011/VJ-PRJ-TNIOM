@@ -1,5 +1,3 @@
-using Assets.Scripts;
-using Assets.Scripts.Classes;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,6 +27,9 @@ public class Player : GameUnit
     private bool canDash = true;
     // Is dashing 
     private bool isDashing = false;
+    // I dead?
+    private bool isDead = false;
+
 
     // MovX
     private float movX;
@@ -44,6 +45,7 @@ public class Player : GameUnit
     public override void Update()
     {
         disableActions -= Time.deltaTime;
+        disableHit -= Time.deltaTime;
         base.Update();
 
         if (isDashing)
@@ -97,11 +99,15 @@ public class Player : GameUnit
 
         if(gameObject.tag == "Hitbox")
         {
-            var enemy = gameObject.GetComponentInParent<Enemy>();
-            Vector2 direction = enemy.FacingDirection > 0 ? Vector2.left : Vector2.right;
-            StopMovement(0.1f);
-            Hit(enemy.Unit.Damage);
-            Force(direction, enemy.pushForce, ForceMode2D.Impulse);
+            if(!isDead && !isDashing && disableHit <= 0)
+            {
+                disableHit += hitDuration;
+                var enemy = gameObject.GetComponentInParent<Enemy>();
+                Vector2 direction = enemy.FacingDirection > 0 ? Vector2.left : Vector2.right;
+                StopMovement(0.1f);
+                Hit(enemy.Unit.Damage);
+                Force(direction, enemy.pushForce, ForceMode2D.Impulse);
+            }
         }
     }
 
@@ -143,7 +149,7 @@ public class Player : GameUnit
 
         if (direction > 0)
             localScale.x = Mathf.Abs(localScale.x) * 1f;
-        else if (direction < 0)            
+        else if (direction < 0)
             localScale.x = Mathf.Abs(localScale.x) * - 1;
 
         transform.localScale = localScale;
@@ -179,7 +185,7 @@ public class Player : GameUnit
 
     private void Attack()
     {
-        if (disableActions > 0.1)
+        if (disableActions > 0)
             return;
 
         var animName = "Attack-A";
@@ -202,7 +208,11 @@ public class Player : GameUnit
 
     protected override void Death(UnitBase unit)
     {
-
+        var len = Utils.GetClipLength(animator, "Death");
+        StopMovement(len);
+        animator.SetTrigger("Death");
+        isDead = true;
+        //Destroy(gameObject, len);
     }
 
     protected override void OnHPChange(float hp)

@@ -7,28 +7,25 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace Assets.Scripts.Classes
+public class Utils
 {
-    public class Utils
+    public static float GetClipLength(Animator animator, string animName)
     {
-        public static float GetClipLength(Animator animator, string animName)
-        {
-            var clip = animator
-            .runtimeAnimatorController
-            .animationClips
-            .ToList()
-            .Find(x => {
-                return x.name == animName;
-            });
+        var clip = animator
+        .runtimeAnimatorController
+        .animationClips
+        .ToList()
+        .Find(x => {
+            return x.name == animName;
+        });
 
-            return clip.length;
-        }
+        return clip.length;
+    }
 
-        public static IEnumerator Delay(float time, Action cbBefore = null, Action cbAfter = null)
-        {
-            cbBefore?.Invoke();
-            yield return new WaitForSeconds(time);
-            cbAfter?.Invoke();
-        }
+    public static IEnumerator Delay(float time, Action cbBefore = null, Action cbAfter = null)
+    {
+        cbBefore?.Invoke();
+        yield return new WaitForSeconds(time);
+        cbAfter?.Invoke();
     }
 }

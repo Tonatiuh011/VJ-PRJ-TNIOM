@@ -1,5 +1,3 @@
-using Assets.Scripts;
-using Assets.Scripts.Classes;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -72,10 +70,6 @@ public class Bird : Enemy
         StopMovement(len);
         animator.SetTrigger("Death");
         Destroy(gameObject, len);
-        //StartCoroutine(Utils.Delay(
-        //    len,
-        //    cbAfter: () => Destroy(gameObject, len)
-        //));
     }
 
     protected override void OnHPChange(float hp)
