@@ -7,11 +7,15 @@ using UnityEngine.InputSystem;
 public class Player : GameUnit
 {
     [Header("Player - Movement")]
-    public float jumpForce = 7.5f;
-    public float jumpTime = 0.2f;
-    public float dashingForce = 3.3f;
-    public float dashingTime = 0.2f;
-    public float dashingCooldown = 1f;
+    public float jumpForce;
+    public float jumpTime;
+    public float dashingForce;
+    public float dashingTime;
+
+    // Player Actions
+    private UnitAction<float> DashAction;
+    private UnitAction<float> JumpAction;
+    private UnitAction<string> AttackAction = null;
     
     // Trigger animations, set values, etc
     private Animator        animator;
@@ -19,17 +23,9 @@ public class Player : GameUnit
     private Sensor  groundSensor;
     // HitBox sensor
     private Sensor hitbox;
+    
     // Is grounded var
     private bool isGrounded = false;
-    // Double Jump var
-    private bool canDoubleJump;
-    // Dash Variable
-    private bool canDash = true;
-    // Is dashing 
-    private bool isDashing = false;
-    // I dead?
-    private bool isDead = false;
-
 
     // MovX
     private float movX;
@@ -39,16 +35,26 @@ public class Player : GameUnit
     private float movY;
     private float MovY { get => movY; set => movY = value; }
 
-    // diable actions 
-    private float disableActions;
+    public override void Start()
+    {
+        base.Start();
+        animator = GetComponent<Animator>();
+        groundSensor = transform.Find("GroundSensor").GetComponent<Sensor>();
+        hitbox = transform.Find("Hitbox").GetComponent<Sensor>();
+        hitbox.OnCollision = OnHitbox;
+        DashAction = new UnitAction<float>(dashingTime, Dash);
+        JumpAction = new UnitAction<float>(jumpTime, Jump);
+    }
 
     public override void Update()
     {
-        disableActions -= Time.deltaTime;
-        disableHit -= Time.deltaTime;
+        DashAction.Update();
+        JumpAction.Update();
+        AttackAction?.Update();
+
         base.Update();
 
-        if (isDashing)
+        if (DashAction.Active)
             return;
 
         MovY = Velocity.y;
@@ -71,27 +77,14 @@ public class Player : GameUnit
         if (isGrounded && !groundSensor.State())
         {
             isGrounded = false;
-            canDoubleJump = true;
             animator.SetBool("Grounded", isGrounded);
         }
-
-        if (isGrounded && !Input.GetButton("Jump"))
-            canDoubleJump = false;
-
-        if ((xDir != 0 || yDir != 0 || inputRaw != 0) && !isDashing)
+        
+        if ((xDir != 0 || yDir != 0 || inputRaw != 0) && !DashAction.Active)
             Move(xDir, yDir, inputRaw);
 
         animator.SetFloat("AirSpeedY", yDir);
-    }
-
-    public override void Start()
-    {
-        base.Start();
-        animator = GetComponent<Animator>();
-        groundSensor = transform.Find("GroundSensor").GetComponent<Sensor>();
-        hitbox = transform.Find("Hitbox").GetComponent<Sensor>();
-        hitbox.OnCollision = OnHitbox;
-    }
+    }    
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
@@ -99,9 +92,8 @@ public class Player : GameUnit
 
         if(gameObject.tag == "Hitbox")
         {
-            if(!isDead && !isDashing && disableHit <= 0)
+            if(!Unit.IsDead && !DashAction.Active && !HitAction.Active)
             {
-                disableHit += hitDuration;
                 var enemy = gameObject.GetComponentInParent<Enemy>();
                 Vector2 direction = enemy.FacingDirection > 0 ? Vector2.left : Vector2.right;
                 StopMovement(0.1f);
@@ -119,14 +111,14 @@ public class Player : GameUnit
 
     public void OnJump(InputValue inputValue)
     {
-        if (isGrounded || canDoubleJump)
-            StartCoroutine(Jump());
+        if (isGrounded && !JumpAction.Active)
+            JumpAction.Exec(jumpForce);
     }
 
     public void OnDash(InputValue inputValue)
     {
-        if (canDash && isGrounded)
-            StartCoroutine(Dash());
+        if (isGrounded && !DashAction.Active)
+            DashAction.Exec(dashingForce);
     }
 
     public void OnAttack(InputValue inputValue)
@@ -155,44 +147,38 @@ public class Player : GameUnit
         transform.localScale = localScale;
     }
 
-    private IEnumerator Dash()
+    private void Dash(float force)
     {
         animator.SetTrigger("Dash");
-        canDash = false;
-        isDashing = true;
-        rb2D.velocity = new Vector2(transform.localScale.x * dashingForce, 0f);
-        yield return new WaitForSeconds(dashingTime);
-        isDashing = false;
-        yield return new WaitForSeconds(dashingCooldown);
-        canDash = true;
+        rb2D.velocity = new Vector2(transform.localScale.x * force, 0f);
+        //(dashingCooldown);
     }
 
-    private IEnumerator Jump()
+    private void Jump(float force)
     {
-        if (!canDoubleJump)
-            animator.SetTrigger("Jump");
-        else
-            animator.SetTrigger("DoubleJump");
-
         isGrounded = false;
+        animator.SetTrigger("Jump");
         animator.SetBool("Grounded", isGrounded);
-        movY = jumpForce;
+        movY = force;
         Force(Vector2.up, movY, ForceMode2D.Impulse);
         groundSensor.Disable(0.2f);
-        canDoubleJump = !canDoubleJump;
-        yield return new WaitForSeconds(jumpTime);
     }
 
     private void Attack()
     {
-        if (disableActions > 0)
-            return;
+        if (AttackAction == null || AttackAction?.Active == false)
+        {
+            var animName = "Attack-A";
+            var len = Utils.GetClipLength(animator, animName);
 
-        var animName = "Attack-A";
-        animator.SetTrigger("AttackA");
-        var len = Utils.GetClipLength(animator, animName);
-        StopMovement(len);
-        disableActions += len;
+            AttackAction =  new UnitAction<string>(len, name =>
+            {
+                animator.SetTrigger("AttackA");
+                StopMovement(len);
+            });
+
+            AttackAction.Exec(animName);
+        }
     }
 
     public void OnHitbox(Collider2D collider)
@@ -211,8 +197,6 @@ public class Player : GameUnit
         var len = Utils.GetClipLength(animator, "Death");
         StopMovement(len);
         animator.SetTrigger("Death");
-        isDead = true;
-        //Destroy(gameObject, len);
     }
 
     protected override void OnHPChange(float hp)

@@ -32,6 +32,7 @@ public class Bird : Enemy
     public override void Update()
     {
         base.Update();
+
         if (Target == null)
             return;
 
@@ -65,7 +66,8 @@ public class Bird : Enemy
             sprite.flipX = false;
     }
 
-    protected override void Death(UnitBase unit) {
+    protected override void Death(UnitBase unit) 
+    {
         var len = Utils.GetClipLength(animator, "Death");
         StopMovement(len);
         animator.SetTrigger("Death");

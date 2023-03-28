@@ -22,7 +22,9 @@ public class UnitBase
                 return 0;
             }
         }
-    } 
+    }
+
+    public bool IsDead { get; private set; } = false;
 
     public float HealthPoints { get; set; }
 
@@ -37,9 +39,10 @@ public class UnitBase
         OnDeath = onDeath;
     }
 
-    public void AddHP(float hp) { 
-        CurrentHP += hp; 
+    public void AddHP(float hp) {
+        CurrentHP += hp;
         OnHealthPointsChanged(CurrentHP);
+        IsDead = false;
     }
 
     public void AddDamage(float damage) => Damage += damage;
@@ -49,6 +52,9 @@ public class UnitBase
         CurrentHP -= damage;
         OnHealthPointsChanged(CurrentHP);
         if (CurrentHP <= 0)
+        {
             OnDeath(this);
+            IsDead = true;
+        }
     }
 }

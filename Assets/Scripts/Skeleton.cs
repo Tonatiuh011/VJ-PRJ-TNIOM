@@ -4,24 +4,41 @@ using UnityEngine;
 
 public class Skeleton : Enemy
 {
+
+    private Animator animator;
+    private SpriteRenderer sprite;
+
+    public override void Start()
+    {
+        base.Start();
+        animator = GetComponent<Animator>();
+        sprite = GetComponent<SpriteRenderer>();
+    }
+
     protected override void Death(UnitBase unit)
     {
-        throw new System.NotImplementedException();
+        var len = Utils.GetClipLength(animator, "DeathEnemy");
+        StopMovement(len);
+        animator.SetTrigger("Death");
+        Destroy(gameObject, len);
     }
 
     protected override void OnHPChange(float hp)
     {
-        throw new System.NotImplementedException();
+
     }
 
     protected override void OnMovement()
     {
-        throw new System.NotImplementedException();
+
     }
 
     protected override void OnSwapDirection(int direction)
     {
-        throw new System.NotImplementedException();
+        if (direction > 0)
+            sprite.flipX = true;
+        else if (direction < 0)
+            sprite.flipX = false;
     }
 
 }

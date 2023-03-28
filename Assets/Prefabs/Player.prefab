@@ -276,14 +276,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxSpeed: 4.5
-  hp: 100
+  hp: 500
   damage: 50
-  hitDuration: 3
-  jumpForce: 4.2
-  jumpTime: 0.2
+  hitDuration: 4
+  jumpForce: 5
+  jumpTime: 0.5
   dashingForce: 3.3
   dashingTime: 0.8
-  dashingCooldown: 0.1
 --- !u!114 &3715394597977865625
 MonoBehaviour:
   m_ObjectHideFlags: 0

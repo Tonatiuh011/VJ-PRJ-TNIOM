@@ -8,36 +8,35 @@ using UnityEngine;
 public abstract class GameUnit : MovingObject, IUnit
 {
     [Header("Health - Damage")]
-    public float hp = 100;
-    public float damage = 50;
-    public float hitDuration = 0.4f;
+    public float hp;
+    public float damage;
+    public float hitDuration;
 
     // Disabled Hit timer
-    protected float disableHit;
-    protected UnitAction<float, bool> HitAction;
+    protected UnitAction <float> HitAction;
 
     public float HP { get; set; }
     public float Damage { get; set; }
     public UnitBase Unit { get; set; }
-        
-    public GameUnit()
+
+    public override void Start()
     {
+        base.Start();
         HP = hp;
         Damage = damage;
         Unit = new UnitBase(HP, Damage, OnHPChange, Death);
+        HitAction = new UnitAction<float>(hitDuration, Unit.Hit);
+    }
 
-        HitAction = new UnitAction<float, bool>(hitDuration, dmg => {
-            Unit.Hit(damage);
-            return HitAction.Active;
-        });
+    public override void Update()
+    {
+        base.Update();
+        HitAction?.Update();
     }
 
     protected abstract void OnHPChange(float hp);
 
     protected abstract void Death(UnitBase unit);
 
-    public virtual void Hit(float damage){
-        HitAction.Exec(damage);
-        //Unit.Hit(damage);
-    }
+    public virtual void Hit(float damage) => HitAction.Exec(damage);
 }
