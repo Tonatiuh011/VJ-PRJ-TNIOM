@@ -26,7 +26,20 @@ namespace Edgar.Unity.Editor
             EditorGUIUtility.labelWidth = EditorGUIUtility.currentViewWidth / 2f;
 
             EditorGUILayout.LabelField("Input config", EditorStyles.boldLabel);
-            EditorGUILayout.PropertyField(serializedObject.FindProperty(nameof(DungeonGeneratorBaseGrid2D.FixedLevelGraphConfig)));
+
+            // PRO
+            EditorGUILayout.PropertyField(serializedObject.FindProperty(nameof(DungeonGeneratorBaseGrid2D.InputType)));
+            switch (levelGenerator.InputType)
+            {
+                case DungeonGeneratorInputTypeGrid2D.CustomInput:
+                    EditorGUILayout.PropertyField(serializedObject.FindProperty(nameof(DungeonGeneratorBaseGrid2D.CustomInputTask)));
+                    break;
+                case DungeonGeneratorInputTypeGrid2D.FixedLevelGraph:
+                    EditorGUILayout.PropertyField(serializedObject.FindProperty(nameof(DungeonGeneratorBaseGrid2D.FixedLevelGraphConfig)));
+                    break;
+            }
+
+            EditorGUILayout.Space();
 
             EditorGUILayout.LabelField("Generator config", EditorStyles.boldLabel);
             EditorGUILayout.PropertyField(serializedObject.FindProperty(nameof(DungeonGeneratorBaseGrid2D.GeneratorConfig)));
@@ -67,12 +80,9 @@ namespace Edgar.Unity.Editor
 
             EditorGUILayout.Space();
 
-            if (levelGenerator is DungeonGeneratorGrid2D)
+            if (GUILayout.Button("Generate level"))
             {
-                if (GUILayout.Button("Generate level"))
-                {
-                    levelGenerator.Generate();
-                }
+                levelGenerator.Generate();
             }
 
             EditorGUIUtility.labelWidth = 0;

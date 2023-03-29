@@ -326,7 +326,7 @@ namespace Edgar.Unity.Editor
         {
             foreach (var connectionControl in connectionControls)
             {
-                connectionControl.Draw(panOffset, zoom, false);
+                connectionControl.Draw(panOffset, zoom, LevelGraph.IsDirected);
             }
         }
 

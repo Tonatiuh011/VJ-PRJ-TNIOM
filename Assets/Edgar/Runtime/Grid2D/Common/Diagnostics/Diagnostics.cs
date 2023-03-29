@@ -16,6 +16,11 @@ namespace Edgar.Unity.Diagnostics
                 results.AddRange(Run(dungeonGeneratorPayload.LevelDescription));
                 results.Add(new TimeoutLength().Run(dungeonGeneratorPayload.DungeonGenerator));
                 results.Add(new MinimumRoomDistance().Run(dungeonGeneratorPayload.DungeonGenerator));
+            } 
+            // This is added for the 3D version
+            else if (payload is DungeonGeneratorPayloadGrid3D payloadGrid3D)
+            {
+                return GeneratorDiagnosticsGrid3D.Run(payloadGrid3D);
             }
 
             return results;

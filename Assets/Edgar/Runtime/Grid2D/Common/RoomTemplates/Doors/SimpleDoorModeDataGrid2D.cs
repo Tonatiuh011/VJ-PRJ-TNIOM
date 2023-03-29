@@ -14,6 +14,8 @@ namespace Edgar.Unity
 
         public int DoorLength = 1;
 
+        public DoorSocketBase Socket;
+
         public SettingsMode Mode;
 
         public SimpleDoorModeSettingsGrid2D VerticalDoors;
@@ -82,6 +84,8 @@ namespace Edgar.Unity
                         From = doorLineTemp.From.ToUnityIntVector3(),
                         To = doorLineTemp.To.ToUnityIntVector3(),
                         Length = settings.Length,
+                        Socket = Socket,
+                        Direction = DoorDirection.Undirected,
                     };
                     doorLines.Add(doorLine);
                 }

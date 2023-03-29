@@ -15,6 +15,10 @@ namespace Edgar.Unity
         [HideInInspector]
         public Vector3 To;
 
+        public DoorDirection Direction;
+
+        public DoorSocketBase Socket;
+
         #region Equals
 
         protected bool Equals(DoorGrid2D other)

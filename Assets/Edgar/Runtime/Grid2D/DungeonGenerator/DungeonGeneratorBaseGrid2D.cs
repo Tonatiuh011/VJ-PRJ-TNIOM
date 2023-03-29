@@ -13,6 +13,16 @@ namespace Edgar.Unity
     /// </summary>
     public abstract class DungeonGeneratorBaseGrid2D : LevelGeneratorBase<DungeonGeneratorPayloadGrid2D>
     {
+        // PRO
+        public DungeonGeneratorInputTypeGrid2D InputType;
+
+        // PRO
+        [ExpandableScriptableObject]
+        public DungeonGeneratorInputBaseGrid2D CustomInputTask;
+
+        // PRO
+        protected override bool ThrowExceptionImmediately => ThrowExceptionsImmediately;
+
         [Expandable]
         public FixedLevelGraphConfigGrid2D FixedLevelGraphConfig;
 
@@ -84,7 +94,15 @@ namespace Edgar.Unity
 
         protected virtual IPipelineTask<DungeonGeneratorPayloadGrid2D> GetInputTask()
         {
-            return new FixedLevelGraphInputTaskGrid2D(FixedLevelGraphConfig);
+            if (InputType == DungeonGeneratorInputTypeGrid2D.CustomInput)
+            {
+                // PRO
+                return CustomInputTask;
+            }
+            else
+            {
+                return new FixedLevelGraphInputTaskGrid2D(FixedLevelGraphConfig);
+            }
         }
 
         protected virtual IPipelineTask<DungeonGeneratorPayloadGrid2D> GetGeneratorTask()

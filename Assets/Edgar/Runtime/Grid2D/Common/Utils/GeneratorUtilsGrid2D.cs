@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Edgar.Geometry;
 using Edgar.GraphBasedGenerator.Common;
+using Edgar.GraphBasedGenerator.Common.Doors;
 using Edgar.GraphBasedGenerator.Grid2D;
 using UnityEditor;
 using UnityEngine;
@@ -126,6 +127,8 @@ namespace Edgar.Unity
                     From = doorLine.Line.From.ToUnityIntVector3(),
                     To = doorLine.Line.To.ToUnityIntVector3(),
                     Length = doorLine.Length + 1,
+                    Direction = GetDirection(doorLine.Type),
+                    Socket = doorLine.DoorSocket as DoorSocketBase
                 };
                 var doorLineInfo = new DoorLineInfoGrid2D(
                     doorLineUnity,
@@ -152,26 +155,42 @@ namespace Edgar.Unity
         {
             var doorLine = doorInfo.DoorLine;
 
+            // TODO: keep DRY
             switch (doorLine.GetDirection())
             {
                 case OrthogonalLineGrid2D.Direction.Right:
                     return new DoorInstanceGrid2D(new OrthogonalLine(doorLine.From.ToUnityIntVector3(), doorLine.To.ToUnityIntVector3()), Vector2Int.up,
-                        connectedRoomInstance.Room, connectedRoomInstance);
+                        connectedRoomInstance.Room, connectedRoomInstance, doorInfo.Socket as DoorSocketBase, GetDirection(doorInfo.Type));
 
                 case OrthogonalLineGrid2D.Direction.Left:
                     return new DoorInstanceGrid2D(new OrthogonalLine(doorLine.To.ToUnityIntVector3(), doorLine.From.ToUnityIntVector3()), Vector2Int.down,
-                        connectedRoomInstance.Room, connectedRoomInstance);
+                        connectedRoomInstance.Room, connectedRoomInstance, doorInfo.Socket as DoorSocketBase, GetDirection(doorInfo.Type));
 
                 case OrthogonalLineGrid2D.Direction.Top:
                     return new DoorInstanceGrid2D(new OrthogonalLine(doorLine.From.ToUnityIntVector3(), doorLine.To.ToUnityIntVector3()), Vector2Int.left,
-                        connectedRoomInstance.Room, connectedRoomInstance);
+                        connectedRoomInstance.Room, connectedRoomInstance, doorInfo.Socket as DoorSocketBase, GetDirection(doorInfo.Type));
 
                 case OrthogonalLineGrid2D.Direction.Bottom:
                     return new DoorInstanceGrid2D(new OrthogonalLine(doorLine.To.ToUnityIntVector3(), doorLine.From.ToUnityIntVector3()), Vector2Int.right,
-                        connectedRoomInstance.Room, connectedRoomInstance);
+                        connectedRoomInstance.Room, connectedRoomInstance, doorInfo.Socket as DoorSocketBase, GetDirection(doorInfo.Type));
 
                 default:
                     throw new ArgumentOutOfRangeException();
+            }
+        }
+
+        private static DoorDirection GetDirection(DoorType type)
+        {
+            switch (type)
+            {
+                case DoorType.Undirected:
+                    return DoorDirection.Undirected;
+                case DoorType.Entrance:
+                    return DoorDirection.Entrance;
+                case DoorType.Exit:
+                    return DoorDirection.Exit;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(type), type, null);
             }
         }
 

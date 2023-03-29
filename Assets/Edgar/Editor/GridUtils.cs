@@ -22,16 +22,16 @@ namespace Edgar.Unity.Editor
         /// <param name="isDotted"></param>
         public static void DrawRectangleOutline(Grid grid, Vector3Int fromTile, Vector3Int toTile, Color color, Vector2 sizeModifier = default, bool addDiagonal = false, string label = null, bool isDotted = false)
         {
-            if (grid.cellLayout == GridLayout.CellLayout.Isometric || grid.cellLayout == GridLayout.CellLayout.IsometricZAsY)
-            {
-                if (DateTime.Now.Subtract(TimeSpan.FromSeconds(30)) > lastIsometricErrorShown)
-                {
-                    Debug.LogError("Isometric levels are only supported in the PRO version");
-                    lastIsometricErrorShown = DateTime.Now;
-                }
+            //if (grid.cellLayout == GridLayout.CellLayout.Isometric || grid.cellLayout == GridLayout.CellLayout.IsometricZAsY)
+            //{
+            //    if (DateTime.Now.Subtract(TimeSpan.FromSeconds(30)) > lastIsometricErrorShown)
+            //    {
+            //        Debug.LogError("Isometric levels are only supported in the PRO version");
+            //        lastIsometricErrorShown = DateTime.Now;
+            //    }
 
-                return;
-            }
+            //    return;
+            //}
 
             var drawLine = isDotted
                 ? (Action<Vector3, Vector3>) ((p1, p2) => Handles.DrawDottedLine(p1, p2, 2f))
@@ -58,6 +58,16 @@ namespace Edgar.Unity.Editor
             var xSizeModifier = new Vector3(sizeModifier.x, 0);
             var ySizeModifier = new Vector3(0, sizeModifier.y);
 
+            // PRO only
+            if (grid.cellLayout == GridLayout.CellLayout.Isometric || grid.cellLayout == GridLayout.CellLayout.IsometricZAsY)
+            {
+                xDirection = new Vector3(cellSizeX, cellSizeY) / 2;
+                yDirection = new Vector3(-cellSizeX, cellSizeY) / 2;
+
+                xSizeModifier = new Vector3(sizeModifier.x, sizeModifier.y) / 2;
+                ySizeModifier = new Vector3(-sizeModifier.x, sizeModifier.y) / 2;
+            }
+
             var points = new List<Vector3>();
 
             if (fromWorld.x < toWorld.x)
@@ -79,6 +89,13 @@ namespace Edgar.Unity.Editor
             points[1] += xSizeModifier - ySizeModifier;
             points[2] += -xSizeModifier - ySizeModifier;
             points[3] += -xSizeModifier + ySizeModifier;
+
+            // PRO only
+            if (grid.cellLayout == GridLayout.CellLayout.Isometric || grid.cellLayout == GridLayout.CellLayout.IsometricZAsY)
+            {
+                points[0] -= (xSizeModifier + ySizeModifier) / 2;
+                points[2] -= (-xSizeModifier - ySizeModifier) / 2;
+            }
 
             var originalColor = Handles.color;
             Handles.color = color;

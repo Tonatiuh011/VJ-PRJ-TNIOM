@@ -30,6 +30,8 @@ namespace Edgar.Unity.Editor
                 EditorGUILayout.PropertyField(FindProperty(nameof(SimpleDoorModeDataGrid2D.VerticalDoors)), true);
                 EditorGUILayout.PropertyField(FindProperty(nameof(SimpleDoorModeDataGrid2D.HorizontalDoors)), true);
             }
+
+            EditorGUILayout.PropertyField(FindProperty(nameof(SimpleDoorModeDataGrid2D.Socket)));
         }
 
         private SerializedProperty FindProperty(string name)
@@ -43,7 +45,7 @@ namespace Edgar.Unity.Editor
             var grid = gameObject.GetComponentInChildren<Grid>();
             var doorLines = doors.SimpleDoorModeData.GetDoorLines(doors);
 
-            var color = Color.red;
+            var color = doors.SimpleDoorModeData.Socket?.GetColor() ?? Color.red;
 
             foreach (var doorLine in doorLines)
             {
