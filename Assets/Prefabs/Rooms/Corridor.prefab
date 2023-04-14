@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8560345913024017875}
   - component: {fileID: 1980490424016082636}
   - component: {fileID: 4141482518494549881}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Walls
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -299,7 +299,7 @@ GameObject:
   - component: {fileID: 8262670321061914624}
   - component: {fileID: 4809518549646892669}
   - component: {fileID: 3594646532554231597}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Platforms
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1069,6 +1069,7 @@ GameObject:
   - component: {fileID: 1068966774411972087}
   - component: {fileID: 8775432875435387075}
   - component: {fileID: 1816706866568700257}
+  - component: {fileID: 7853973959995357834}
   m_Layer: 0
   m_Name: Corridor
   m_TagString: Untagged
@@ -1128,19 +1129,19 @@ MonoBehaviour:
     DoorLines: []
   ManualDoorModeData:
     DoorsList:
-    - From: {x: -4, y: 4, z: 0}
-      To: {x: -4, y: 0, z: 0}
-      Direction: 0
-      Socket: {fileID: 0}
     - From: {x: -3, y: 4, z: 0}
       To: {x: -3, y: 0, z: 0}
-      Direction: 0
+      Direction: 2
+      Socket: {fileID: 0}
+    - From: {x: -4, y: 4, z: 0}
+      To: {x: -4, y: 0, z: 0}
+      Direction: 1
       Socket: {fileID: 0}
   SimpleDoorModeData:
     DistanceFromCorners: 1
     DoorLength: 1
     Socket: {fileID: 0}
-    Mode: 0
+    Mode: 1
     VerticalDoors:
       Length: 1
       Margin1: 1
@@ -1153,6 +1154,19 @@ MonoBehaviour:
       Enabled: 1
   DefaultSocket: {fileID: 0}
   DefaultDirection: 0
+--- !u!114 &7853973959995357834
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4556786537703555511}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94f6c42cafb48a34aa0b4ab36224fbf6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PaddingTop: 0
 --- !u!1 &6182280648290491020
 GameObject:
   m_ObjectHideFlags: 0
@@ -1199,15 +1213,39 @@ Tilemap:
   m_Enabled: 1
   m_Tiles: {}
   m_AnimatedTiles: {}
-  m_TileAssetArray: []
-  m_TileSpriteArray: []
-  m_TileMatrixArray: []
-  m_TileColorArray: []
+  m_TileAssetArray:
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  m_TileSpriteArray:
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  m_TileMatrixArray:
+  - m_RefCount: 0
+    m_Data:
+      e00: 0
+      e01: 0
+      e02: 7.1481204e+19
+      e03: 7.1481204e+19
+      e10: 0
+      e11: 0
+      e12: 9.43e-43
+      e13: 9.43e-43
+      e20: 0.7206993
+      e21: 1e-45
+      e22: -9.648441e-19
+      e23: 3.88866e-40
+      e30: 4.5905e-41
+      e31: 0
+      e32: 9.43e-43
+      e33: 9.47e-43
+  m_TileColorArray:
+  - m_RefCount: 0
+    m_Data: {r: 9.6942e-41, g: 9.6942e-41, b: 9.6942e-41, a: 9.6942e-41}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Origin: {x: 0, y: 0, z: 0}
-  m_Size: {x: 0, y: 0, z: 1}
+  m_Origin: {x: -1, y: 0, z: 0}
+  m_Size: {x: 1, y: 5, z: 1}
   m_TileAnchor: {x: 0.5, y: 0.5, z: 0}
   m_TileOrientation: 0
   m_TileOrientationMatrix:

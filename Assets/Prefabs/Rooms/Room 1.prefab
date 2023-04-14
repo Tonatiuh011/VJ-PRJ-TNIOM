@@ -159,7 +159,7 @@ GameObject:
   - component: {fileID: 1208025052503616115}
   - component: {fileID: 3788252520965757314}
   - component: {fileID: 5317191781020785976}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Walls
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3186,7 +3186,7 @@ GameObject:
   - component: {fileID: 5856605832250516622}
   - component: {fileID: 6492438939692030543}
   - component: {fileID: 5899498229235270976}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Platforms
   m_TagString: Untagged
   m_Icon: {fileID: 0}
