@@ -4,7 +4,7 @@
 
 * 1.- Nayeli Leal Cruz
 * 2.- Tomas Israel Islas Jimenez
-* 3.- Orlando
+* 3.- Orlando Rodriguez Contreras
 * 4.- Melanny
 
 ### Note: 
