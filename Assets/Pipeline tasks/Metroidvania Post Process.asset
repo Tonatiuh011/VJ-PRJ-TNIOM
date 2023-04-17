@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6ef4d6150ab304419a6d090cfda4aed, type: 3}
+  m_Name: Metroidvania Post Process
+  m_EditorClassIdentifier: 
+  SpawnEnemies: 1
+  Enemies:
+  - {fileID: 6677157798219759756, guid: ef4f30cf3155a4b4f89548bf5a4d6601, type: 3}
+  - {fileID: 3646174501628976277, guid: 9a972d2c1ea5c324a8447f4c63953e0f, type: 3}
+  CreateLevelMap: 1
+  WallTile: {fileID: 11400000, guid: d01e20e8e6c0d084690d815feb7c3f75, type: 2}
+  LevelMapWallTile: {fileID: 11400000, guid: 62c0be2d4883efa4da66538d3d7ea0a2, type: 2}
+  LevelMapWallBackgroundTile: {fileID: 11400000, guid: b8b1c9e0e8ad90047abb61a2e8686c5c, type: 2}
+  LevelMapBackgroundTile: {fileID: 11400000, guid: dbb71b6c47a54914baed03538b4fd9f8, type: 2}
+  LevelMapPlatformTile: {fileID: 11400000, guid: 76905d507b6cd214eb4608536378d990, type: 2}

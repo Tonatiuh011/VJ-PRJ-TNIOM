@@ -187,7 +187,7 @@ Transform:
   m_GameObject: {fileID: 6996234368775844180}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -2.613, y: -3.252, z: 0}
-  m_LocalScale: {x: 1.6492128, y: 1.6492128, z: 1.6492128}
+  m_LocalScale: {x: 4.8, y: 4.8, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8642269569137115176}
@@ -237,7 +237,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 3
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -275,14 +275,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e55fb7ceaf82aa249855c5333cf121c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 4.5
+  maxSpeed: 12
   hp: 500
   damage: 50
   hitDuration: 4
-  jumpForce: 5
+  jumpForce: 20
   jumpTime: 0.5
-  dashingForce: 3.3
-  dashingTime: 0.8
+  dashingForce: 4
+  dashingTime: 0.9
 --- !u!114 &3715394597977865625
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -418,7 +418,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1655104152613595690, guid: 409885da4dbf1214b848da4a5c1609d8, type: 3}
       propertyPath: CollisionMasks.Array.data[0]
-      value: Floor
+      value: StaticEnvironment
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 2238501117714534208, guid: 409885da4dbf1214b848da4a5c1609d8, type: 3}
