@@ -10,4 +10,5 @@ public abstract class Enemy : GameUnit
     [Header("Enemy - Base")]
     public MovingObject Target;
     public float pushForce = 4f;
+    public Transform startPosition;
 }

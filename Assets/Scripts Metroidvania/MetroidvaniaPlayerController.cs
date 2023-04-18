@@ -1,9 +1,7 @@
-﻿using Edgar.Unity.Examples;
-using Edgar.Unity.Examples.PC2D;
-
+﻿using Edgar.Unity.Examples.PC2D;
 using UnityEngine;
 
-namespace Edgar.Unity.Metroidvania
+namespace Edgar.Unity.Examples.Metroidvania
 {
     [RequireComponent(typeof(PlatformerMotor2D))]
     public class MetroidvaniaPlayerController : MonoBehaviour
@@ -32,13 +30,13 @@ namespace Edgar.Unity.Metroidvania
 
             // Jump?
             // If you want to jump in ladders, leave it here, otherwise move it down
-            if (InputHelper.GetKeyDown(Examples.PC2D.Input.JUMP))
+            if (InputHelper.GetKeyDown(PC2D.Input.JUMP))
             {
                 motor.Jump();
                 motor.DisableRestrictedArea();
             }
 
-            motor.jumpingHeld = InputHelper.GetKey(Examples.PC2D.Input.JUMP);
+            motor.jumpingHeld = InputHelper.GetKey(PC2D.Input.JUMP);
 
             // X axis movement
             if (Mathf.Abs(InputHelper.GetHorizontalAxis()) > 0)
@@ -59,7 +57,7 @@ namespace Edgar.Unity.Metroidvania
                 motor.fallFast = false;
             }
 
-            if (InputHelper.GetKeyDown(Examples.PC2D.Input.DASH))
+            if (InputHelper.GetKeyDown(PC2D.Input.DASH))
             {
                 motor.Dash();
             }

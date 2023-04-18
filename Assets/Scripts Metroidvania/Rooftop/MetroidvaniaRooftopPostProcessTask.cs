@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-namespace Edgar.Unity.Metroidvania
+namespace Edgar.Unity.Examples.Metroidvania
 {
     [CreateAssetMenu(menuName = "Edgar/Examples/Metroidvania/Rooftop post-processing", fileName = "MetroidvaniaRooftopPostProcessing")]
     public class MetroidvaniaRooftopPostProcessTask : DungeonGeneratorPostProcessingGrid2D

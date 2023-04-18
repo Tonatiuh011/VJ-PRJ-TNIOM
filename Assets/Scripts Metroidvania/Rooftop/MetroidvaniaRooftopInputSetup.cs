@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using UnityEngine;
 
-namespace Edgar.Unity.Metroidvania
+namespace Edgar.Unity.Examples.Metroidvania
 {
     [CreateAssetMenu(menuName = "Edgar/Examples/Metroidvania/Rooftop input setup", fileName = "Metroidvania Rooftop Input Setup")]
     public class MetroidvaniaRooftopInputSetup : DungeonGeneratorInputBaseGrid2D

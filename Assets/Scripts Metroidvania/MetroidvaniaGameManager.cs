@@ -1,11 +1,10 @@
-﻿using Edgar.Unity.Examples;
-using System;
+﻿using System;
 using System.Collections;
 using System.Diagnostics;
 using UnityEngine;
 using Debug = UnityEngine.Debug;
 
-namespace Edgar.Unity.Metroidvania
+namespace Edgar.Unity.Examples.Metroidvania
 {
     public class MetroidvaniaGameManager : GameManagerBase<MetroidvaniaGameManager>
     {
@@ -16,6 +15,7 @@ namespace Edgar.Unity.Metroidvania
         private bool isGenerating;
 
         public static readonly string LevelMapLayer = "LevelMap";
+        //public static readonly string StaticEnvironmentLayer = "StaticEnvironment";
         public static readonly string StaticEnvironmentLayer = "StaticEnvironment";
 
         protected override void SingletonAwake()
@@ -50,6 +50,7 @@ namespace Edgar.Unity.Metroidvania
 
             // Find the generator runner
             var generator = GameObject.Find($"Platformer Generator").GetComponent<PlatformerGeneratorGrid2D>();
+            //generator.CustomPostProcessTasks[0].
 
             // Start the generator coroutine
             StartCoroutine(GeneratorCoroutine(generator));

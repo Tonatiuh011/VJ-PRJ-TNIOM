@@ -169,14 +169,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f23f8c6a2be2210408bd117b07edf72f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 2
+  maxSpeed: 5
   hp: 20
   damage: 30
   hitDuration: 1
   Target: {fileID: 0}
   pushForce: 4
-  Speed: 1.5
   startPosition: {fileID: 0}
+  Speed: 4
 --- !u!1001 &3646174503162588194
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -5,13 +5,14 @@ using Edgar.Unity.Examples.PC2D;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-namespace Edgar.Unity.Metroidvania
+namespace Edgar.Unity.Examples.Metroidvania
 {
-    //[CreateAssetMenu(menuName = "Edgar/Examples/Metroidvania/Post-processing", fileName = "MetroidvaniaPostProcessing")]
+    [CreateAssetMenu(menuName = "Edgar/Examples/Metroidvania/Post-processing", fileName = "MetroidvaniaPostProcessing")]
     public class MetroidvaniaPostProcessingTask : DungeonGeneratorPostProcessingGrid2D
     {
         public bool SpawnEnemies;
         public Enemy[] Enemies;
+        public GameUnit Player { get; set; }
 
         public bool CreateLevelMap;
 
@@ -105,16 +106,32 @@ namespace Edgar.Unity.Metroidvania
             // Set the environment layer for all the instances of room templates
             foreach (var roomInstance in level.RoomInstances)
             {
-                foreach (var tilemap in RoomTemplateUtilsGrid2D.GetTilemaps(roomInstance.RoomTemplateInstance))
-                {
-                    tilemap.gameObject.layer = environmentLayer;
-                }
+                var tilemap = roomInstance.RoomTemplateInstance.transform.Find("Tilemaps");
+
+                var walls = tilemap.transform.Find("Walls");
+                var plats = tilemap.transform.Find("Platforms");
+
+                if(walls != null) 
+                    walls.gameObject.layer = environmentLayer;
+
+                if(plats != null)
+                    plats.gameObject.layer = environmentLayer;
+                //foreach (var tilemap in RoomTemplateUtilsGrid2D.GetTilemaps(roomInstance.RoomTemplateInstance))
+                //{
+                //    tilemap.gameObject.layer = environmentLayer;
+                //}
             }
 
             // Set the environment layer for all the shared tilemaps
             foreach (var tilemap in level.GetSharedTilemaps())
             {
-                tilemap.gameObject.layer = environmentLayer;
+                var tileObject = tilemap.gameObject;
+                string name = tileObject.name;
+
+                if(name == "Walls" || name == "Platforms")
+                {
+                    tileObject.layer = environmentLayer;
+                }
             }
 
             // Set the environment layer inside the motor script
@@ -156,6 +173,8 @@ namespace Edgar.Unity.Metroidvania
                         var enemy = Instantiate(enemyPrefab);
                         enemy.transform.parent = roomTemplate.transform;
                         enemy.transform.position = enemySpawnPoint.position;
+                        enemy.Target = Player;
+                        enemy.startPosition = enemySpawnPoint;
                     }
                 }
             }
@@ -189,6 +208,7 @@ namespace Edgar.Unity.Metroidvania
             // Move the player to the spawn position
             var player = GameObject.FindWithTag("Player");
             player.transform.position = spawnPosition.position;
+            Player = player.GetComponent<Player>();
         }
 
         #endregion

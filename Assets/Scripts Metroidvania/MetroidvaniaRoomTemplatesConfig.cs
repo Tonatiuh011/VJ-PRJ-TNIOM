@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Edgar.Unity.Metroidvania
+namespace Edgar.Unity.Examples.Metroidvania
 {
     #region codeBlock:2d_metroidvania_roomTemplatesConfig
 

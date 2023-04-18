@@ -1,12 +1,12 @@
-﻿using Edgar.Unity.Examples;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Edgar.Unity.Metroidvania
+namespace Edgar.Unity.Examples.Metroidvania
 {
     public class MetroidvaniaCameraController : MonoBehaviour
     {
         public Camera MainCamera;
         public Camera LevelMapCamera;
+        //public GameObject Follow;
 
         //public int ZoomDefault = 1;
         //public int ZoomLevelMap = 20;
@@ -31,43 +31,43 @@ namespace Edgar.Unity.Metroidvania
             }
         }
 
-        public void Update()
-        {
-            if (InputHelper.GetKeyDown(KeyCode.LeftControl))
-            {
-                //SetOrthographicSize(MainCamera, ZoomDefault);
-                //SetOrthographicSize(LevelMapCamera, ZoomLevelMap);
+        //public void Update()
+        //{
+        //    if (InputHelper.GetKeyDown(KeyCode.LeftControl))
+        //    {
+        //        SetOrthographicSize(MainCamera, ZoomDefault);
+        //        SetOrthographicSize(LevelMapCamera, ZoomLevelMap);
 
-                if (MainCamera.gameObject.activeSelf)
-                {
-                    MainCamera.gameObject.SetActive(false);
-                    LevelMapCamera.gameObject.SetActive(true);
-                }
-                else
-                {
-                    MainCamera.gameObject.SetActive(true);
-                    LevelMapCamera.gameObject.SetActive(false);
-                }
-            }
+        //        if (MainCamera.gameObject.activeSelf)
+        //        {
+        //            MainCamera.gameObject.SetActive(false);
+        //            LevelMapCamera.gameObject.SetActive(true);
+        //        }
+        //        else
+        //        {
+        //            MainCamera.gameObject.SetActive(true);
+        //            LevelMapCamera.gameObject.SetActive(false);
+        //        }
+        //    }
 
-            if (InputHelper.GetKeyDown(KeyCode.L))
-            {
-                //SetOrthographicSize(MainCamera, ZoomDefault);
-                //SetOrthographicSize(LevelMapCamera, ZoomLevelMap);
+        //    if (InputHelper.GetKeyDown(KeyCode.L))
+        //    {
+        //        SetOrthographicSize(MainCamera, ZoomDefault);
+        //        SetOrthographicSize(LevelMapCamera, ZoomLevelMap);
 
-                if (disabledLevelMap)
-                {
-                    disabledLevelMap = false;
-                    var levelMapLayer = LayerMask.NameToLayer(MetroidvaniaGameManager.LevelMapLayer);
-                    LevelMapCamera.cullingMask = 1 << levelMapLayer;
-                }
-                else
-                {
-                    disabledLevelMap = true;
-                    LevelMapCamera.cullingMask = MainCamera.cullingMask;
-                }
-            }
-        }
+        //        if (disabledLevelMap)
+        //        {
+        //            disabledLevelMap = false;
+        //            var levelMapLayer = LayerMask.NameToLayer(MetroidvaniaGameManager.LevelMapLayer);
+        //            LevelMapCamera.cullingMask = 1 << levelMapLayer;
+        //        }
+        //        else
+        //        {
+        //            disabledLevelMap = true;
+        //            LevelMapCamera.cullingMask = MainCamera.cullingMask;
+        //        }
+        //    }
+        //}
 
         private void SetOrthographicSize(Camera camera, int zoomLevel)
         {

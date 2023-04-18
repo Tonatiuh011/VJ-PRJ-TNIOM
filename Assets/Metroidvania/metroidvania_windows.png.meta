@@ -6345,6 +6345,7 @@ TextureImporter:
     nameFileIdTable:
       windows_77: 21300154
       windows_97: 21300194
+      windows_230: 21300460
       windows_46: 21300092
       windows_79: 21300158
       windows_154: 21300308
@@ -6360,7 +6361,6 @@ TextureImporter:
       windows_115: 21300230
       windows_200: 21300400
       windows_179: 21300358
-      windows_69: 21300138
       windows_21: 21300042
       windows_129: 21300258
       windows_151: 21300302
@@ -6504,12 +6504,12 @@ TextureImporter:
       windows_111: 21300222
       windows_60: 21300120
       windows_94: 21300188
-      windows_237: 21300474
-      windows_207: 21300414
       windows_124: 21300248
+      windows_207: 21300414
       windows_161: 21300322
       windows_197: 21300394
       windows_225: 21300450
+      windows_237: 21300474
       windows_212: 21300424
       windows_75: 21300150
       windows_190: 21300380
@@ -6600,8 +6600,8 @@ TextureImporter:
       windows_228: 21300456
       windows_134: 21300268
       windows_30: 21300060
+      windows_69: 21300138
       windows_182: 21300364
-      windows_230: 21300460
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

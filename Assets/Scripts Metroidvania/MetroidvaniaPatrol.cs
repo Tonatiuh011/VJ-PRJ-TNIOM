@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Edgar.Unity.Metroidvania
+namespace Edgar.Unity.Examples.Metroidvania
 {
     // https://www.youtube.com/watch?v=aRxuKoJH9Y0
     public class MetroidvaniaPatrol : MonoBehaviour

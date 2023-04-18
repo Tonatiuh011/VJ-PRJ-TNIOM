@@ -1,7 +1,7 @@
 ﻿using Edgar.Unity.Examples.PC2D;
 using UnityEngine;
 
-namespace Edgar.Unity.Metroidvania
+namespace Edgar.Unity.Examples.Metroidvania
 {
     /// <summary>
     /// This is a very very very simple example of how an animation system could query information from the motor to set state.

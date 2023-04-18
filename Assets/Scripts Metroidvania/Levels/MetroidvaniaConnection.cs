@@ -1,4 +1,4 @@
-﻿namespace Edgar.Unity.Metroidvania
+﻿namespace Edgar.Unity.Examples.Metroidvania
 {
     public class MetroidvaniaConnection : Connection
     {

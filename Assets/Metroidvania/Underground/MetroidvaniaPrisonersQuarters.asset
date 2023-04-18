@@ -72,8 +72,8 @@ MonoBehaviour:
   - {fileID: 114720077142094548}
   - {fileID: 114963163936202738}
   EditorData:
-    PanOffset: {x: 80.688034, y: 40.318222}
-    Zoom: 0.7780827
+    PanOffset: {x: -210.42091, y: -45.634583}
+    Zoom: 2.0902648
   RoomType: Edgar.Unity.Examples.Metroidvania.MetroidvaniaRoom
   ConnectionType: Edgar.Unity.Examples.Metroidvania.MetroidvaniaConnection
   IsDirected: 0
@@ -106,6 +106,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   From: {fileID: 114720077142094548}
   To: {fileID: 114375857043636980}
+  RoomTemplates: []
 --- !u!114 &114050876560937530
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -120,6 +121,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   From: {fileID: 114763762806045096}
   To: {fileID: 114344936526646830}
+  RoomTemplates: []
 --- !u!114 &114076756004895426
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -179,6 +181,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   From: {fileID: 114536936071255560}
   To: {fileID: 114025791957105326}
+  RoomTemplates: []
 --- !u!114 &114192544270084504
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -193,6 +196,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   From: {fileID: 114076756004895426}
   To: {fileID: 114309483200629872}
+  RoomTemplates: []
 --- !u!114 &114219836555047010
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -207,6 +211,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   From: {fileID: 114275587723552702}
   To: {fileID: 114905260947126540}
+  RoomTemplates: []
 --- !u!114 &114226578811656910
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -221,6 +226,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   From: {fileID: 114487207375993582}
   To: {fileID: 114084447995638498}
+  RoomTemplates: []
 --- !u!114 &114240018213108252
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -235,6 +241,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   From: {fileID: 114184181143699712}
   To: {fileID: 114275587723552702}
+  RoomTemplates: []
 --- !u!114 &114253009079626946
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -264,6 +271,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   From: {fileID: 114905260947126540}
   To: {fileID: 114782460289948398}
+  RoomTemplates: []
 --- !u!114 &114275587723552702
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -293,6 +301,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   From: {fileID: 114782460289948398}
   To: {fileID: 114076756004895426}
+  RoomTemplates: []
 --- !u!114 &114301909827648310
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -307,6 +316,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   From: {fileID: 114602524926446326}
   To: {fileID: 114479838900196512}
+  RoomTemplates: []
 --- !u!114 &114306009535015326
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -321,6 +331,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   From: {fileID: 114773923199306884}
   To: {fileID: 114722448279994984}
+  RoomTemplates: []
 --- !u!114 &114309483200629872
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -395,6 +406,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   From: {fileID: 114866871903769446}
   To: {fileID: 114487207375993582}
+  RoomTemplates: []
 --- !u!114 &114418594598785272
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -409,6 +421,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   From: {fileID: 114789787960051972}
   To: {fileID: 114614096723058078}
+  RoomTemplates: []
 --- !u!114 &114431478590098112
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -423,6 +436,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   From: {fileID: 114763762806045096}
   To: {fileID: 114536936071255560}
+  RoomTemplates: []
 --- !u!114 &114453424933412260
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -437,6 +451,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   From: {fileID: 114720077142094548}
   To: {fileID: 114963163936202738}
+  RoomTemplates: []
 --- !u!114 &114479838900196512
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -511,6 +526,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   From: {fileID: 114722448279994984}
   To: {fileID: 114559762157575014}
+  RoomTemplates: []
 --- !u!114 &114536936071255560
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -555,6 +571,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   From: {fileID: 114485895741008686}
   To: {fileID: 114184181143699712}
+  RoomTemplates: []
 --- !u!114 &114601396371210934
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -569,6 +586,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   From: {fileID: 114025791957105326}
   To: {fileID: 114602524926446326}
+  RoomTemplates: []
 --- !u!114 &114602228278095190
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -583,6 +601,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   From: {fileID: 114497295744987746}
   To: {fileID: 114866871903769446}
+  RoomTemplates: []
 --- !u!114 &114602524926446326
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -627,6 +646,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   From: {fileID: 114375104826104352}
   To: {fileID: 114763762806045096}
+  RoomTemplates: []
 --- !u!114 &114705247085413500
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -641,6 +661,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   From: {fileID: 114184181143699712}
   To: {fileID: 114253009079626946}
+  RoomTemplates: []
 --- !u!114 &114720077142094548
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -715,6 +736,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   From: {fileID: 114309483200629872}
   To: {fileID: 114497295744987746}
+  RoomTemplates: []
 --- !u!114 &114782460289948398
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -759,6 +781,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   From: {fileID: 114559762157575014}
   To: {fileID: 114485895741008686}
+  RoomTemplates: []
 --- !u!114 &114866871903769446
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -788,6 +811,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   From: {fileID: 114253009079626946}
   To: {fileID: 114375104826104352}
+  RoomTemplates: []
 --- !u!114 &114896799410570074
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -802,6 +826,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   From: {fileID: 114344936526646830}
   To: {fileID: 114375857043636980}
+  RoomTemplates: []
 --- !u!114 &114905260947126540
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -831,6 +856,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   From: {fileID: 114253009079626946}
   To: {fileID: 114789787960051972}
+  RoomTemplates: []
 --- !u!114 &114963163936202738
 MonoBehaviour:
   m_ObjectHideFlags: 0

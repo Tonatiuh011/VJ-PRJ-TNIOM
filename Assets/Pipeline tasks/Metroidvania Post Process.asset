@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SpawnEnemies: 1
   Enemies:
-  - {fileID: 6677157798219759756, guid: ef4f30cf3155a4b4f89548bf5a4d6601, type: 3}
   - {fileID: 3646174501628976277, guid: 9a972d2c1ea5c324a8447f4c63953e0f, type: 3}
+  - {fileID: 6677157798219759756, guid: ef4f30cf3155a4b4f89548bf5a4d6601, type: 3}
   CreateLevelMap: 1
   WallTile: {fileID: 11400000, guid: d01e20e8e6c0d084690d815feb7c3f75, type: 2}
   LevelMapWallTile: {fileID: 11400000, guid: 62c0be2d4883efa4da66538d3d7ea0a2, type: 2}

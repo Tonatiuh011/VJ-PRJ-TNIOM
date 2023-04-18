@@ -1111,7 +1111,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      platforms_31: 21300062
+      platforms_35: 21300070
       platforms_13: 21300026
       platforms_36: 21300072
       platforms_39: 21300078
@@ -1151,7 +1151,7 @@ TextureImporter:
       platforms_2: 21300004
       platforms_30: 21300060
       platforms_6: 21300012
-      platforms_35: 21300070
+      platforms_31: 21300062
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

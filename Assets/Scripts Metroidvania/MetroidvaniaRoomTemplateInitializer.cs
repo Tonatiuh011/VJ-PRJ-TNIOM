@@ -3,7 +3,7 @@
 using UnityEditor;
 #endif
 
-namespace Edgar.Unity.Metroidvania
+namespace Edgar.Unity.Examples.Metroidvania
 {
     public class MetroidvaniaRoomTemplateInitializer : RoomTemplateInitializerBaseGrid2D
     {
