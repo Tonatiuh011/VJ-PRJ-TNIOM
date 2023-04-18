@@ -241,6 +241,20 @@ namespace Edgar.Unity.Examples.Metroidvania
             var player = GameObject.FindWithTag("Player");
             player.transform.position = spawnPosition.position;
             Player = player.GetComponent<Player>();
+
+            // Restar life to player
+            if (player != null)
+            {
+                var sPlayer = player.GetComponent<Player>();
+                if (sPlayer.Unit != null)
+                {
+                    sPlayer.Unit.AddHP(sPlayer.Unit.HealthPoints);
+                }
+                else
+                {
+                    Console.WriteLine("error");
+                }
+            }
         }
 
         #endregion
