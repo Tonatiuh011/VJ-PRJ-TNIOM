@@ -177,6 +177,7 @@ MonoBehaviour:
   startPosition: {fileID: 0}
   walkDistance: 2
   speed: 4.5
+  Sound2: {fileID: 5618624151818576067, guid: 0774b4212a39ec14fbcd3b4019774d00, type: 3}
 --- !u!1001 &6677157796605202948
 PrefabInstance:
   m_ObjectHideFlags: 0

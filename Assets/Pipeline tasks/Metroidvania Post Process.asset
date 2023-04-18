@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6ef4d6150ab304419a6d090cfda4aed, type: 3}
   m_Name: Metroidvania Post Process
   m_EditorClassIdentifier: 
-  SpawnEnemies: 0
+  SpawnEnemies: 1
   Enemies:
   - {fileID: 3646174501628976277, guid: 9a972d2c1ea5c324a8447f4c63953e0f, type: 3}
   - {fileID: 6677157798219759756, guid: ef4f30cf3155a4b4f89548bf5a4d6601, type: 3}

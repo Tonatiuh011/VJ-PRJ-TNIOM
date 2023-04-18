@@ -1,3 +1,4 @@
+using System;
 using Edgar.Unity.Examples.Metroidvania;
 using System.Collections;
 using System.Collections.Generic;
@@ -15,6 +16,7 @@ public class Player : GameUnit
     public float dashingTime;
 
     // Player Actions
+    public Action <float> hpChange { get; set; }
     private UnitAction<float> DashAction;
     private UnitAction<float> JumpAction;
     private UnitAction<string> AttackAction = null;
@@ -217,7 +219,7 @@ public class Player : GameUnit
 
     protected override void OnHPChange(float hp)
     {
-
+        hpChange ?.Invoke(hp);
     }
 
     public override void Hit(float damage)
