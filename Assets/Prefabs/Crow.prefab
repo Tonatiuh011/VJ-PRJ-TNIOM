@@ -177,6 +177,7 @@ MonoBehaviour:
   pushForce: 4
   Speed: 1.5
   startPosition: {fileID: 0}
+  Sound1: {fileID: 2354309441579327992, guid: eb5653f662c7e7249a3bf9d1f0aa91d2, type: 3}
 --- !u!1001 &3646174503162588194
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -8,6 +8,8 @@ public class Skeleton : Enemy
     private Animator animator;
     private SpriteRenderer sprite;
 
+    public GameObject Sound2;
+
     public override void Start()
     {
         base.Start();
@@ -17,6 +19,7 @@ public class Skeleton : Enemy
 
     protected override void Death(UnitBase unit)
     {
+        Instantiate(Sound2);
         var len = Utils.GetClipLength(animator, "DeathEnemy");
         StopMovement(len);
         animator.SetTrigger("Death");

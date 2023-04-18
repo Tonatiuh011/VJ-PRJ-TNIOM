@@ -7,6 +7,7 @@ public class Bird : Enemy
     [Header("Bird - Props")]
     public float Speed = 1.5f;
     public Transform startPosition;
+    public GameObject Sound1;
 
     // Is chasing
     private bool isChasing = false;
@@ -68,6 +69,7 @@ public class Bird : Enemy
 
     protected override void Death(UnitBase unit) 
     {
+        Instantiate(Sound1);
         var len = Utils.GetClipLength(animator, "Death");
         StopMovement(len);
         animator.SetTrigger("Death");
