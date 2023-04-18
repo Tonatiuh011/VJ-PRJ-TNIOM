@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections;
 using System.Diagnostics;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 using Debug = UnityEngine.Debug;
 
 namespace Edgar.Unity.Examples.Metroidvania
@@ -27,6 +29,10 @@ namespace Edgar.Unity.Examples.Metroidvania
             }
 
             LoadNextLevel();
+
+            var player = GameObject.Find("Player").GetComponent<Player>();
+            var texto = (Text) Canvas.transform.Find("HP").GetComponent<Text>();
+            player.hpChange = hp => { texto.text = "HP " + hp.ToString(); };
 
             Instance = this;
         }
