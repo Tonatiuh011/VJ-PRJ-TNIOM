@@ -103,6 +103,9 @@ namespace Edgar.Unity.Examples.Metroidvania
                 return;
             }
 
+            var noFriction = GameObject.Find("Walls_noFriction").GetComponent<PhysicsMaterial2D>();
+            
+
             // Set the environment layer for all the instances of room templates
             foreach (var roomInstance in level.RoomInstances)
             {
@@ -111,11 +114,40 @@ namespace Edgar.Unity.Examples.Metroidvania
                 var walls = tilemap.transform.Find("Walls");
                 var plats = tilemap.transform.Find("Platforms");
 
-                if(walls != null) 
+                if(walls != null)
+                {
                     walls.gameObject.layer = environmentLayer;
+                    var paredes = walls.gameObject.GetComponent<Rigidbody2D>();
+                    var paredes2 = walls.gameObject.GetComponent<CompositeCollider2D>();
+
+                    paredes.sharedMaterial.friction = 0;
+                    paredes.sharedMaterial.bounciness = 0;
+                    paredes2.sharedMaterial.friction = 0;
+                    paredes2.sharedMaterial.bounciness = 0;
+                }
 
                 if(plats != null)
+                {
                     plats.gameObject.layer = environmentLayer;
+                    var plataformas = plats.gameObject.GetComponent<Rigidbody2D>();
+                    var plataformas2 = plats.gameObject.GetComponent<CompositeCollider2D>();
+
+                    plataformas.sharedMaterial.friction = 0;
+                    plataformas.sharedMaterial.bounciness = 0;
+                    plataformas2.sharedMaterial.friction = 0;
+                    plataformas2.sharedMaterial.bounciness = 0;
+                }
+
+                if (roomInstance.RoomTemplateInstance.name.Contains("Exit"))
+                {
+                    GameObject instancia = roomInstance.RoomTemplateInstance.gameObject;
+                    Sensor sensor = instancia.transform.Find("Sensor").GetComponent<Sensor>();
+                    sensor.OnCollision = col =>
+                    {
+                        MetroidvaniaGameManager.Instance.LoadNextLevel();
+                    };
+                }
+
                 //foreach (var tilemap in RoomTemplateUtilsGrid2D.GetTilemaps(roomInstance.RoomTemplateInstance))
                 //{
                 //    tilemap.gameObject.layer = environmentLayer;
