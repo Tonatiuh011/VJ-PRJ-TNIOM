@@ -116,6 +116,17 @@ namespace Edgar.Unity.Examples.Metroidvania
 
                 if(plats != null)
                     plats.gameObject.layer = environmentLayer;
+
+                if (roomInstance.RoomTemplateInstance.name.Contains("Exit"))
+                {
+                    GameObject instancia = roomInstance.RoomTemplateInstance.gameObject;
+                    Sensor sensor = instancia.transform.Find("Sensor").GetComponent<Sensor>();
+                    sensor.OnCollision = col =>
+                    {
+                        MetroidvaniaGameManager.Instance.LoadNextLevel();
+                    };
+                }
+
                 //foreach (var tilemap in RoomTemplateUtilsGrid2D.GetTilemaps(roomInstance.RoomTemplateInstance))
                 //{
                 //    tilemap.gameObject.layer = environmentLayer;

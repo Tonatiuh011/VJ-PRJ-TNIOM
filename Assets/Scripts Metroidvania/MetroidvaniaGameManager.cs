@@ -8,6 +8,7 @@ namespace Edgar.Unity.Examples.Metroidvania
 {
     public class MetroidvaniaGameManager : GameManagerBase<MetroidvaniaGameManager>
     {
+        public static MetroidvaniaGameManager Instance = new MetroidvaniaGameManager();
         public MetroidvaniaLevelType LevelType;
         private long generatorElapsedMilliseconds;
 
@@ -26,6 +27,8 @@ namespace Edgar.Unity.Examples.Metroidvania
             }
 
             LoadNextLevel();
+
+            Instance = this;
         }
 
         public void Update()
