@@ -57,6 +57,20 @@ namespace Edgar.Unity.Examples.Metroidvania
 
             // Start the generator coroutine
             StartCoroutine(GeneratorCoroutine(generator));
+
+            //// Restar life to player
+            //var player = GameObject.FindGameObjectWithTag("Player");
+            //if (player != null)
+            //{
+            //    var sPlayer = player.GetComponent<Player>();
+            //    if (sPlayer.Unit != null)
+            //    {
+            //        sPlayer.Unit.AddHP(sPlayer.Unit.HealthPoints);
+            //    } else
+            //    {
+            //        Console.WriteLine("error");
+            //    }
+            //}
         }
 
 

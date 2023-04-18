@@ -1,3 +1,4 @@
+using Edgar.Unity.Examples.Metroidvania;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -200,6 +201,8 @@ public class Player : GameUnit
         var len = Utils.GetClipLength(animator, "Death");
         StopMovement(len);
         animator.SetTrigger("Death");
+
+        MetroidvaniaGameManager.Instance.LoadNextLevel();
     }
 
     protected override void OnHPChange(float hp)

@@ -103,6 +103,8 @@ namespace Edgar.Unity.Examples.Metroidvania
                 return;
             }
 
+            
+
             // Set the environment layer for all the instances of room templates
             foreach (var roomInstance in level.RoomInstances)
             {
@@ -111,11 +113,19 @@ namespace Edgar.Unity.Examples.Metroidvania
                 var walls = tilemap.transform.Find("Walls");
                 var plats = tilemap.transform.Find("Platforms");
 
-                if(walls != null) 
+                if(walls != null)
+                {
                     walls.gameObject.layer = environmentLayer;
+                    var paredes = walls.gameObject.GetComponent<Rigidbody2D>();
+                    var paredes2 = walls.gameObject.GetComponent<CompositeCollider2D>();
+                }
 
                 if(plats != null)
+                {
                     plats.gameObject.layer = environmentLayer;
+                    var plataformas = plats.gameObject.GetComponent<Rigidbody2D>();
+                    var plataformas2 = plats.gameObject.GetComponent<CompositeCollider2D>();
+                }
 
                 if (roomInstance.RoomTemplateInstance.name.Contains("Exit"))
                 {
@@ -220,6 +230,20 @@ namespace Edgar.Unity.Examples.Metroidvania
             var player = GameObject.FindWithTag("Player");
             player.transform.position = spawnPosition.position;
             Player = player.GetComponent<Player>();
+
+            // Restar life to player
+            if (player != null)
+            {
+                var sPlayer = player.GetComponent<Player>();
+                if (sPlayer.Unit != null)
+                {
+                    sPlayer.Unit.AddHP(sPlayer.Unit.HealthPoints);
+                }
+                else
+                {
+                    Console.WriteLine("error");
+                }
+            }
         }
 
         #endregion
