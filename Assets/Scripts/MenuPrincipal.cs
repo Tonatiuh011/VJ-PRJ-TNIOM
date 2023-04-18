@@ -10,4 +10,9 @@ public class MenuPrincipal : MonoBehaviour
     public void EmpezarJuego(){
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
+
+    public void SalirJuego(){
+        Debug.Log("quitar");
+        Application.Quit();
+    }
 }
