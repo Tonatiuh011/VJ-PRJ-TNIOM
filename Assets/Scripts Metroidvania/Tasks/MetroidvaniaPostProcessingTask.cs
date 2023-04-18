@@ -103,7 +103,7 @@ namespace Edgar.Unity.Examples.Metroidvania
                 return;
             }
 
-            var noFriction = GameObject.Find("Walls_noFriction").GetComponent<PhysicsMaterial2D>();
+            //var noFriction = GameObject.Find("Walls_noFriction").GetComponent<PhysicsMaterial2D>();
             
 
             // Set the environment layer for all the instances of room templates
@@ -120,10 +120,17 @@ namespace Edgar.Unity.Examples.Metroidvania
                     var paredes = walls.gameObject.GetComponent<Rigidbody2D>();
                     var paredes2 = walls.gameObject.GetComponent<CompositeCollider2D>();
 
-                    paredes.sharedMaterial.friction = 0;
-                    paredes.sharedMaterial.bounciness = 0;
-                    paredes2.sharedMaterial.friction = 0;
-                    paredes2.sharedMaterial.bounciness = 0;
+                    if(paredes != null)
+                    {
+                        paredes.sharedMaterial.friction = 0;
+                        paredes.sharedMaterial.bounciness = 0;
+                    }
+
+                    if(paredes2 != null)
+                    {
+                        paredes2.sharedMaterial.friction = 0;
+                        paredes2.sharedMaterial.bounciness = 0;
+                    }                                      
                 }
 
                 if(plats != null)
@@ -132,10 +139,17 @@ namespace Edgar.Unity.Examples.Metroidvania
                     var plataformas = plats.gameObject.GetComponent<Rigidbody2D>();
                     var plataformas2 = plats.gameObject.GetComponent<CompositeCollider2D>();
 
-                    plataformas.sharedMaterial.friction = 0;
-                    plataformas.sharedMaterial.bounciness = 0;
-                    plataformas2.sharedMaterial.friction = 0;
-                    plataformas2.sharedMaterial.bounciness = 0;
+                    if(plataformas != null)
+                    {
+                        plataformas.sharedMaterial.friction = 0;
+                        plataformas.sharedMaterial.bounciness = 0;
+                    }
+                    
+                    if(plataformas2 != null)
+                    {
+                        plataformas2.sharedMaterial.friction = 0;
+                        plataformas2.sharedMaterial.bounciness = 0;
+                    }                    
                 }
 
                 if (roomInstance.RoomTemplateInstance.name.Contains("Exit"))
@@ -163,6 +177,20 @@ namespace Edgar.Unity.Examples.Metroidvania
                 if(name == "Walls" || name == "Platforms")
                 {
                     tileObject.layer = environmentLayer;
+                    //var paredes = tileObject.GetComponent<Rigidbody2D>();
+                    //var paredes2 = tileObject.GetComponent<CompositeCollider2D>();
+
+                    //if (paredes != null)
+                    //{
+                    //    paredes.sharedMaterial.friction = 0;
+                    //    paredes.sharedMaterial.bounciness = 0;
+                    //}
+
+                    //if (paredes2 != null)
+                    //{
+                    //    paredes2.sharedMaterial.friction = 0;
+                    //    paredes2.sharedMaterial.bounciness = 0;
+                    //}
                 }
             }
 

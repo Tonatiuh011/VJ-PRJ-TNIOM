@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Diagnostics;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 using Debug = UnityEngine.Debug;
 
 namespace Edgar.Unity.Examples.Metroidvania
@@ -95,6 +96,64 @@ namespace Edgar.Unity.Examples.Metroidvania
             generatorElapsedMilliseconds = stopwatch.ElapsedMilliseconds;
             RefreshLevelInfo();
             HideLoadingScreen();
+
+            //var generatedLevel = GameObject.Find("Generated Level");
+            //var tileObject = generatedLevel.transform.Find("Tilemaps").gameObject;
+
+            //var walls = tileObject.transform.Find("Walls");
+            //var plats = tileObject.transform.Find("Platforms");
+
+            //if (walls != null)
+            //{                
+            //    var paredes = walls.gameObject.GetComponent<Rigidbody2D>();
+            //    var paredes2 = walls.gameObject.GetComponent<CompositeCollider2D>();
+
+            //    if (paredes != null)
+            //    {
+            //        paredes.sharedMaterial.friction = 0;
+            //        paredes.sharedMaterial.bounciness = 0;
+            //    }
+
+            //    if (paredes2 != null)
+            //    {
+            //        paredes2.sharedMaterial.friction = 0;
+            //        paredes2.sharedMaterial.bounciness = 0;
+            //    }
+            //}
+
+            //if (plats != null)
+            //{                
+            //    var plataformas = plats.gameObject.GetComponent<Rigidbody2D>();
+            //    var plataformas2 = plats.gameObject.GetComponent<CompositeCollider2D>();
+
+            //    if (plataformas != null)
+            //    {
+            //        plataformas.sharedMaterial.friction = 0;
+            //        plataformas.sharedMaterial.bounciness = 0;
+            //    }
+
+            //    if (plataformas2 != null)
+            //    {
+            //        plataformas2.sharedMaterial.friction = 0;
+            //        plataformas2.sharedMaterial.bounciness = 0;
+            //    }
+            //}
+
+
+            //var paredes = tileObject.GetComponent<Rigidbody2D>();
+            //var paredes2 = tileObject.GetComponent<CompositeCollider2D>();
+
+            //if (paredes != null)
+            //{
+            //    paredes.sharedMaterial.friction = 0;
+            //    paredes.sharedMaterial.bounciness = 0;
+            //}
+
+            //if (paredes2 != null)
+            //{
+            //    paredes2.sharedMaterial.friction = 0;
+            //    paredes2.sharedMaterial.bounciness = 0;
+            //}
         }
 
         private void RefreshLevelInfo()
