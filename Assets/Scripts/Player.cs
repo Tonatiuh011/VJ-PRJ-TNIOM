@@ -45,6 +45,16 @@ public class Player : GameUnit
         hitbox.OnCollision = OnHitbox;
         DashAction = new UnitAction<float>(dashingTime, Dash);
         JumpAction = new UnitAction<float>(jumpTime, Jump);
+
+        groundSensor.OnCollision = col =>
+        {
+            // Checking if foe just landed on ground
+            if (!isGrounded && groundSensor.State())
+            {
+                isGrounded = true;
+                animator.SetBool("Grounded", isGrounded);
+            }
+        };
     }
 
     public override void Update()
@@ -67,12 +77,12 @@ public class Player : GameUnit
         if (xDir != 0)
             inputRaw = xDir > 0 ? 1 : -1;
 
-        // Checking if foe just landed on ground
-        if (!isGrounded && groundSensor.State())
-        {
-            isGrounded = true;
-            animator.SetBool("Grounded", isGrounded);
-        }
+        //// Checking if foe just landed on ground
+        //if (!isGrounded && groundSensor.State())
+        //{
+        //    isGrounded = true;
+        //    animator.SetBool("Grounded", isGrounded);
+        //}
 
         // Checking if foe fall off
         if (isGrounded && !groundSensor.State())
