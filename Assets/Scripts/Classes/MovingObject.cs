@@ -100,7 +100,7 @@ public abstract class MovingObject : MonoBehaviour // Ya me awite, ok <3
     /// <param name="vector"></param>
     /// <param name="force"></param>
     /// <param name="mode"></param>
-    protected void Force(Vector2 vector, float force, ForceMode2D mode) 
+    public void Force(Vector2 vector, float force, ForceMode2D mode) 
         => rb2D.AddForce(vector * force, mode);
 
     /// <summary>

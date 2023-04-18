@@ -6,7 +6,7 @@ public class Bird : Enemy
 {
     [Header("Bird - Props")]
     public float Speed = 1.5f;
-    public Transform startPosition;
+
     public GameObject Sound1;
 
     // Is chasing

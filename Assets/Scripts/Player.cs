@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -189,6 +190,8 @@ public class Player : GameUnit
         if(enemy != null)
         {
             enemy.Hit(Unit.Damage);
+            var direction = FacingDirection == 1 ? Vector2.right : Vector2.left;            
+            enemy.Force(direction, 5.5f, ForceMode2D.Impulse);
         }
     }
 

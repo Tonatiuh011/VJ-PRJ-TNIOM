@@ -17,8 +17,8 @@ TagManager:
   - Enemy
   - Hitbox
   - 
-  - 
-  - 
+  - StaticEnvironment
+  - LevelMap
   - 
   - 
   - 
